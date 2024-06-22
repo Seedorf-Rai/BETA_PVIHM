@@ -26,3 +26,28 @@ module.exports.adminRegister = async(req,res)=>{
       res.status(500).json({message: "Internal Server Error"})
     }
 }
+module.exports.adminLogin = async (req,res)=>{
+   try{
+    const {email,password} = req.body;
+    if(!email || !password){
+     res.status(401).json({error: "Credentials not completed"})
+    }
+    const admin = await Admin.findOne({email})
+    if(!admin){
+      res.status(401).json({error: "Invalid Email or Password"})
+    }
+    if(!admin.isPasswordCorrect(password)){
+      res.status(401).json({error: "Invalid Email or Password"})
+    }
+    const token = await admin.generateAccessToken();
+    const newAdmin = await Admin.findById(admin._id).select("-password");
+    const options = {
+      httpOnly : true,
+      secure : true,
+    };
+    res.status(201).cookie("Token:",token,options).json({success : newAdmin});
+   }
+   catch(err){
+      res.status(500).json({message: "Internal Server Error"})
+   }
+}
