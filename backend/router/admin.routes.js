@@ -7,6 +7,6 @@ router.get('/',  (req, res)=>{
 
 router.post('/register',adminController.adminRegister)
 router.post('/login',adminController.adminLogin)
-
+router.post('/logout',adminController.adminLogout)
 
 module.exports = router
