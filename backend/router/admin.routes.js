@@ -19,4 +19,8 @@ router.post('/message-ceo',upload.single('ceo'),adminController.postCEOMessage)
 router.get('/message-ceo',upload.single('ceo'),adminController.getCEOMessage)
 router.patch('/message-ceo/:id',upload.single('ceo'),adminController.updateCEOMessage)
 
+router.post('/message-director',upload.single('director'),adminController.postDirMsg);
+router.get('/message-director',upload.single('director'),adminController.getDirMsg);
+router.patch('/message-director/:id',upload.single('director'),adminController.updateDirMsg);
+
 module.exports = router

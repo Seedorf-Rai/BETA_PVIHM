@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path');
 const Welcome = require('../models/Welcome.model.js');
 const MsgCEO = require('../models/ceoMessage.model.js');
+const Director = require('../models/director.model.js');
 
 module.exports.adminRegister = async(req,res)=>{
     try{
@@ -281,6 +282,90 @@ module.exports.updateCEOMessage = async(req, res) => {
      }
      await ceo.save();
      res.status(200).json({ceo: ceo})
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+
+module.exports.postDirMsg = async(req,res)=>{
+  try{
+    const director = await Director.findOne();
+    if(director){
+      const filePath = path.join(__dirname,'..',req.file.path)
+      fs.unlink(filePath,async (err) => {
+        if (err) {
+          console.error('File deletion error:', err);
+          return res.status(500).json({ message: "File deletion error" });
+        }
+      })
+      return res.status(400).json({message: "Director already exists"})
+    }
+    const {message} = req.body;
+    if(!req.file){
+     return res.status(400).json({message: "Director photo not uploaded"})
+    }
+    const localPath = req.file.path;
+    const msg = await Director.create({
+      message: message,
+      image: localPath
+    })
+    if(!msg){
+      res.status(400).json({message: "Could not create message"})
+    }
+    else{
+      res.status(201).json({director: msg})
+    }
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+
+module.exports.getDirMsg = async (req,res)=>{
+  try{
+   const director = await Director.findOne();
+   if(!director){
+    return res.status(404).json({message: "CEO Message Not Found"})
+   }
+   else{
+    res.status(200).json({director: director})
+   }
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+
+module.exports.updateDirMsg = async(req, res) => {
+  try{
+  const id = req.params.id
+  const director = await Director.findById(id)
+  if(!director){
+    return res.status(404).json({message: "Director message not found"})
+    }
+    const {message} = req.body
+    if(req.file){
+      const filePath = path.join(__dirname,'..',director.image)
+      await new Promise((resolve, reject) => {
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error('File deletion error:', err);
+            return reject(err);
+          }
+          director.image = req.file.path;
+          resolve();
+        });
+      });
+     }
+     if(message){
+      director.message = message;
+     }
+     await director.save();
+     res.status(200).json({director: director})
   }
   catch(err){
     console.log(err);
