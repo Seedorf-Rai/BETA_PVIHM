@@ -16,6 +16,7 @@ router.post('/welcome',upload.single('welcome'),adminController.postWelcomeSecti
 router.get('/welcome',upload.single('welcome'),adminController.getWelcomeSection)
 router.patch('/welcome/:id',upload.single('welcome'),adminController.updateWelcomeSection)
 router.post('/message-ceo',upload.single('ceo'),adminController.postCEOMessage)
+router.get('/message-ceo',upload.single('ceo'),adminController.getCEOMessage)
 router.patch('/message-ceo/:id',upload.single('ceo'),adminController.updateCEOMessage)
 
 module.exports = router

@@ -217,7 +217,6 @@ module.exports.postCEOMessage = async(req,res)=>{
           console.error('File deletion error:', err);
           return res.status(500).json({ message: "File deletion error" });
         }
-        getWelcomeSection.image = req.file.path
       })
       return res.status(400).json({message: "CEO already exists"})
     }
@@ -241,6 +240,21 @@ module.exports.postCEOMessage = async(req,res)=>{
     res.status(500).json({message: "Internal Server Error"})
   }
 }
+module.exports.getCEOMessage = async (req,res)=>{
+  try{
+   const ceo = await MsgCEO.findOne();
+   if(!ceo){
+    return res.status(404).json({message: "CEO Message Not Found"})
+   }
+   else{
+    res.status(200).json({ceo: ceo})
+   }
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
 module.exports.updateCEOMessage = async(req, res) => {
   try{
   const id = req.params.id
@@ -251,22 +265,25 @@ module.exports.updateCEOMessage = async(req, res) => {
     const {message} = req.body
     if(req.file){
       const filePath = path.join(__dirname,'..',ceo.image)
-      fs.unlink(filePath, async (err) => {
-        if (err) {
-          console.error('File deletion error:', err);
-          return res.status(500).json({ message: "File deletion error" });
-        }
-        ceo.image = req.file.path
+      await new Promise((resolve, reject) => {
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error('File deletion error:', err);
+            return reject(err);
+          }
+          ceo.image = req.file.path;
+          resolve();
+        });
       });
-
      }
-     if(description){
-      ceo.description = description;
+     if(message){
+      ceo.message = message;
      }
      await ceo.save();
      res.status(200).json({ceo: ceo})
   }
   catch(err){
+    console.log(err);
     res.status(500).json({message: "Internal Server Error"})
   }
 }
