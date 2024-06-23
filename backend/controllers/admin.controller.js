@@ -2,7 +2,8 @@ const { default: mongoose } = require('mongoose');
 const Admin = require('../models/admin.model.js')
 const Carousel = require('../models/carousel.model.js')
 const fs = require('fs')
-const path = require('path')
+const path = require('path');
+const Welcome = require('../models/Welcome.model.js');
 
 module.exports.adminRegister = async(req,res)=>{
     try{
@@ -131,4 +132,65 @@ module.exports.deleteCarousel = async (req,res)=>{
       console.error('Internal server error:', err);
       return res.status(500).json({ message: "Internal Server Error" });
     }
+}
+module.exports.postWelcomeSection = async (req, res) => {
+  try{
+    if(!req.file){
+    return  res.status(400).json({ message: "Provide Welcome Image"})
+    }
+    const {description} = req.body;
+    const welcomeImage = req.file.path;
+    const welcome = await Welcome.create({
+      description: description,
+      image: welcomeImage
+    })
+    if(welcome){
+      res.status(201).json({ message: "Welcome Section Created Successfully" })
+    }
+    else{
+      res.status(400).json({ message: "Failed to create Welcome Section" })
+    }
+  }
+  catch(err){
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+module.exports.getWelcomeSection = async(req,res) => {
+  try{
+   const welcome = await Welcome.find({}).exec();
+   if(!welcome){
+    res.status(404).json({ message: "Welcome Section Not Found"})
+   }
+   res.status(200).json({welcome: welcome})
+  }
+  catch(err){
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+module.exports.updateWelcomeSection = async(req,res)=>{
+  try{
+   const id = req.params.id;
+   const {description} = req.body;
+   const getWelcomeSection = await Welcome.findById(id);
+   console.log(getWelcomeSection);
+   if(req.file){
+    const filePath = path.join(__dirname,'..',getWelcomeSection.image)
+    fs.unlink(filePath, async (err) => {
+      if (err) {
+        console.error('File deletion error:', err);
+        return res.status(500).json({ message: "File deletion error" });
+      }
+      getWelcomeSection.imgae = req.file.path
+    });
+
+   }
+   if(description){
+    getWelcomeSection.description = description;
+   }
+   await getWelcomeSection.save();
+   res.status(200).json({welcome: getWelcomeSection})
+  }
+  catch(err){
+    res.status(500).json({message: "Internal Server Error"})
+  }
 }
