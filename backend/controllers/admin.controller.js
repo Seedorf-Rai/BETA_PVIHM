@@ -4,6 +4,7 @@ const Carousel = require('../models/carousel.model.js')
 const fs = require('fs')
 const path = require('path');
 const Welcome = require('../models/Welcome.model.js');
+const MsgCEO = require('../models/ceoMessage.model.js');
 
 module.exports.adminRegister = async(req,res)=>{
     try{
@@ -135,6 +136,17 @@ module.exports.deleteCarousel = async (req,res)=>{
 }
 module.exports.postWelcomeSection = async (req, res) => {
   try{
+    const welcomeSection = await Welcome.findOne();
+    if(welcomeSection){
+      const filePath = path.join(__dirname,'..',req.file.path)
+    fs.unlink(filePath, async (err) => {
+      if (err) {
+        console.error('File deletion error:', err);
+        return res.status(500).json({ message: "File deletion error" });
+      }
+    });
+    return res.status(400).json({ message: "Welcome Already Exists"})
+    }
     if(!req.file){
     return  res.status(400).json({ message: "Provide Welcome Image"})
     }
@@ -152,6 +164,7 @@ module.exports.postWelcomeSection = async (req, res) => {
     }
   }
   catch(err){
+    console.log(err);
     res.status(500).json({message: "Internal Server Error"})
   }
 }
@@ -189,6 +202,69 @@ module.exports.updateWelcomeSection = async(req,res)=>{
    }
    await getWelcomeSection.save();
    res.status(200).json({welcome: getWelcomeSection})
+  }
+  catch(err){
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+module.exports.postCEOMessage = async(req,res)=>{
+  try{
+    const ceo = await MsgCEO.findOne();
+    if(ceo){
+      const filePath = path.join(__dirname,'..',req.file.path)
+      fs.unlink(filePath,async (err) => {
+        if (err) {
+          console.error('File deletion error:', err);
+          return res.status(500).json({ message: "File deletion error" });
+        }
+        getWelcomeSection.image = req.file.path
+      })
+      return res.status(400).json({message: "CEO already exists"})
+    }
+    const {message} = req.body;
+    if(!req.file){
+     return res.status(400).json({message: "CEO photo not uploaded"})
+    }
+    const localPath = req.file.path;
+    const msg = await MsgCEO.create({
+      message: message,
+      image: localPath
+    })
+    if(!msg){
+      res.status(400).json({message: "Could not create message"})
+    }
+    else{
+      res.status(201).json({ceo: msg})
+    }
+  }
+  catch(err){
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+module.exports.updateCEOMessage = async(req, res) => {
+  try{
+  const id = req.params.id
+  const ceo = await MsgCEO.findById(id)
+  if(!ceo){
+    return res.status(404).json({message: "CEO message not found"})
+    }
+    const {message} = req.body
+    if(req.file){
+      const filePath = path.join(__dirname,'..',ceo.image)
+      fs.unlink(filePath, async (err) => {
+        if (err) {
+          console.error('File deletion error:', err);
+          return res.status(500).json({ message: "File deletion error" });
+        }
+        ceo.image = req.file.path
+      });
+
+     }
+     if(description){
+      ceo.description = description;
+     }
+     await ceo.save();
+     res.status(200).json({ceo: ceo})
   }
   catch(err){
     res.status(500).json({message: "Internal Server Error"})

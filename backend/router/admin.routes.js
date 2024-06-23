@@ -15,5 +15,7 @@ router.delete('/carousel/:id',adminController.deleteCarousel)
 router.post('/welcome',upload.single('welcome'),adminController.postWelcomeSection)
 router.get('/welcome',upload.single('welcome'),adminController.getWelcomeSection)
 router.patch('/welcome/:id',upload.single('welcome'),adminController.updateWelcomeSection)
+router.post('/message-ceo',upload.single('ceo'),adminController.postCEOMessage)
+router.patch('/message-ceo/:id',upload.single('ceo'),adminController.updateCEOMessage)
 
 module.exports = router
