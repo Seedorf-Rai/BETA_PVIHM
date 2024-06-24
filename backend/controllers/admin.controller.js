@@ -6,6 +6,7 @@ const path = require('path');
 const Welcome = require('../models/Welcome.model.js');
 const MsgCEO = require('../models/ceoMessage.model.js');
 const Director = require('../models/director.model.js');
+const Affiliation = require('../models/affiliation.model.js');
 
 module.exports.adminRegister = async(req,res)=>{
     try{
@@ -372,3 +373,77 @@ module.exports.updateDirMsg = async(req, res) => {
     res.status(500).json({message: "Internal Server Error"})
   }
 }
+
+module.exports.postAffiliation = async(req,res)=>{
+  try{
+   if(!req.file){
+   return res.status(400).json({message: "Affiliation Photo Required"})
+   }
+   const localPath = req.file.path;
+   const {description} = req.body;
+   if(!description){
+   return res.status(400).json({message: "Affiliation Description Required"})
+   }
+   const aff = await Affiliation.create({
+    image: localPath,
+    description : description
+   })
+   if(!aff){
+    return res.status(500).json({message: "Could not add Affiliation"})
+   }
+   else{
+    res.status(201).json({affiliation: aff})
+   }
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+module.exports.getAffiliation = async (req, res) => {
+  try{
+   const aff = await Affiliation.find();
+   if(!aff){
+    res.status(404).json({msg: "Could not find Affiliation"})
+   }
+   res.status(200).json({affiliations: aff})
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+
+module.exports.updateAffiliation = async (req, res) => {
+  try{
+    const id = req.params.id
+    const aff = await Affiliation.findById(id)
+    if(!aff){
+      return res.status(404).json({message: "Affiliation not found"})
+      }
+      const {description} = req.body
+      if(req.file){
+        const filePath = path.join(__dirname,'..',aff.image)
+        await new Promise((resolve, reject) => {
+          fs.unlink(filePath, (err) => {
+            if (err) {
+              console.error('File deletion error:', err);
+              return reject(err);
+            }
+            aff.image = req.file.path;
+            resolve();
+          });
+        });
+       }
+       if(description){
+        aff.description = description;
+       }
+       await aff.save();
+       res.status(200).json({Affiliation: aff})
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({msg: "Internal Server Error"})
+  }
+}
+

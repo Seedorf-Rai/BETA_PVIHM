@@ -13,14 +13,19 @@ router.post('/carousel',upload.single('carousel'),adminController.postCarousel)
 router.get('/carousel',adminController.getCarousel);
 router.delete('/carousel/:id',adminController.deleteCarousel)
 router.post('/welcome',upload.single('welcome'),adminController.postWelcomeSection)
-router.get('/welcome',upload.single('welcome'),adminController.getWelcomeSection)
+router.get('/welcome',adminController.getWelcomeSection)
 router.patch('/welcome/:id',upload.single('welcome'),adminController.updateWelcomeSection)
+
 router.post('/message-ceo',upload.single('ceo'),adminController.postCEOMessage)
-router.get('/message-ceo',upload.single('ceo'),adminController.getCEOMessage)
+router.get('/message-ceo',adminController.getCEOMessage)
 router.patch('/message-ceo/:id',upload.single('ceo'),adminController.updateCEOMessage)
 
 router.post('/message-director',upload.single('director'),adminController.postDirMsg);
-router.get('/message-director',upload.single('director'),adminController.getDirMsg);
+router.get('/message-director',adminController.getDirMsg);
 router.patch('/message-director/:id',upload.single('director'),adminController.updateDirMsg);
+
+router.post('/affiliation',upload.single('affiliation'),adminController.postAffiliation);
+router.get('/affiliation',adminController.getAffiliation);
+router.patch('/affiliation/:id',upload.single('affiliation'),adminController.updateAffiliation);
 
 module.exports = router
