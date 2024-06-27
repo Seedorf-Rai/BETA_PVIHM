@@ -8,6 +8,7 @@ const MsgCEO = require('../models/ceoMessage.model.js');
 const Director = require('../models/director.model.js');
 const Affiliation = require('../models/affiliation.model.js');
 const Courses = require('../models/course.model.js');
+const Credit = require('../models/credit.model.js');
 
 module.exports.adminRegister = async(req,res)=>{
     try{
@@ -552,4 +553,68 @@ module.exports.deleteCourse = async(req,res) =>{
   console.log(err);
   res.status(500).json({msg: "Internal Server Error"})
  }
+}
+
+module.exports.postCreditTransfers = async (req, res) => {
+  try{
+   if(!req.file){
+    return res.status(400).json({message: "Please upload a file"})
+   }
+   const localPath = req.file.path;
+   const credit = Credit.create({
+    featured: localPath
+   })
+   if(!credit){
+    return res.status(400).json({message: "Could not add Credit Transfers"})
+   }
+   else{
+    return res.status(201).json({msg: "Credit Transfer added successfully"})
+   }
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({msg: "Internal Server Error"})
+  }
+}
+module.exports.getCreditTransfers = async (req, res)=>{
+  try{
+  const allCredits = await Credit.find();
+  if(!allCredits){
+    res.status(404).json({msg: "Credit Transfer not found"})
+  }
+  else{
+    res.status(200).json({credits: allCredits})
+  }
+}
+  catch(err){
+    console.log(err);
+    res.status(500).json({msg : "Internal Server Error"})
+  }
+}
+module.exports.deleteCreditTransfers = async (req, res)=>{
+  try{
+   const id = req.params.id;
+   const check = await Credit.findById(id);
+   if(!check){
+    return res.status(404).json({msg: "Credit Transfer not found"})
+   }
+   else{
+    const filePath = path.join(__dirname,'..',check.featured)
+    await new Promise((resolve, reject) => {
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error('File deletion error:', err);
+          return reject(err);
+        }
+        resolve();
+      });
+    });
+    await Credit.findByIdAndDelete(id);
+    return res.status(200).json({msg: "Credit Transfer deleted successfully"})
+   }
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({msg : "Internal Server Error"})
+  }
 }

@@ -33,4 +33,8 @@ router.get('/courses',adminController.getCourses);
 router.patch('/courses/:id',upload.single('featured'),adminController.updateCourse);
 router.delete('/courses/:id',adminController.deleteCourse);
 
+router.post('/credit-transfers',upload.single('credit-transfers'),adminController.postCreditTransfers);
+router.get('/credit-transfers',adminController.getCreditTransfers);
+router.delete('/credit-transfers/:id',adminController.deleteCreditTransfers);
+
 module.exports = router
