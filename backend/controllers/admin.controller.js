@@ -7,6 +7,7 @@ const Welcome = require('../models/Welcome.model.js');
 const MsgCEO = require('../models/ceoMessage.model.js');
 const Director = require('../models/director.model.js');
 const Affiliation = require('../models/affiliation.model.js');
+const Courses = require('../models/course.model.js');
 
 module.exports.adminRegister = async(req,res)=>{
     try{
@@ -447,3 +448,108 @@ module.exports.updateAffiliation = async (req, res) => {
   }
 }
 
+module.exports.postCourse = async(req,res)=>{
+  try{
+   const {title,duration,description,who_must_take,package,benefits_of_learning} = req.body
+   if(!req.file){
+    return res.status(400).json("Feature photo required");
+   }
+   const localPath = req.file.path
+   const course = await Courses.create({
+    title,featured: localPath,duration,description,who_must_take,package,benefits_of_learning
+   })
+   if(course){
+    return res.status(201).json({msg : "Course added successfully"})
+   }
+   else{
+     return res.status(400).json({msg : "Could not add Course"})
+   }
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({msg: "Internal Server Error"})
+  }
+}
+module.exports.getCourses = async(req,res)=>{
+  try{
+   const courses = await Courses.find();
+   if(courses){
+    return res.status(200).json({courses:courses})
+   }
+   return res.status(404).json({msg: "Courses not found"})
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({msg: "Internal Server Error"})
+  }
+}
+module.exports.updateCourse = async(req,res)=>{
+  try{
+   const id = req.params.id
+   const updatedData = req.body
+   const getCourse = await Courses.findById(id)
+   if(!getCourse){
+    return res.status(404).json({msg: "Course not found"})
+   }
+   if(req.file){
+    const filePath = path.join(__dirname,'..',getCourse.featured)
+    await new Promise((resolve, reject) => {
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error('File deletion error:', err);
+          return reject(err);
+        }
+        updatedData.featured = req.file.path;
+        resolve();
+      });
+    });
+   }
+   const course = await Courses.findByIdAndUpdate(id,{
+    $set : updatedData
+   },{
+    new: true
+   })
+   if(!course){
+    return res.status(400).json({message: "Could not update Course"})
+  }
+  else{
+    return res.status(200).json({course : course})
+  }
+}
+  catch(err){
+    console.log(err);
+    res.status(500).json({msg: "Internal Server Error"})
+  }
+}
+
+module.exports.deleteCourse = async(req,res) =>{
+ try{
+  const id = req.params.id;
+  const checkCourse = await Courses.findById(id)
+  if(!checkCourse){
+    return res.status(404).json({msg: "Course not found"})
+  }
+  const filePath = path.join(__dirname,'..',checkCourse.featured)
+    await new Promise((resolve, reject) => {
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error('File deletion error:', err);
+          return reject(err);
+        }
+        resolve();
+      });
+    });
+  const course = await Courses.findByIdAndDelete(id)
+  if(!course){
+    return res.status(400).json({message: "Could not delete Course"})
+  }
+  else{
+    return res.status(200).json({message : "Course successfully deleted"})
+    }
+
+ }
+ catch(err){
+  console.log(err);
+  res.status(500).json({msg: "Internal Server Error"})
+ }
+}

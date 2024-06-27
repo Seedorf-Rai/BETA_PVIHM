@@ -28,4 +28,9 @@ router.post('/affiliation',upload.single('affiliation'),adminController.postAffi
 router.get('/affiliation',adminController.getAffiliation);
 router.patch('/affiliation/:id',upload.single('affiliation'),adminController.updateAffiliation);
 
+router.post('/courses',upload.single('featured'),adminController.postCourse);
+router.get('/courses',adminController.getCourses);
+router.patch('/courses/:id',upload.single('featured'),adminController.updateCourse);
+router.delete('/courses/:id',adminController.deleteCourse);
+
 module.exports = router

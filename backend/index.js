@@ -16,3 +16,5 @@ app.use('/admin',adminRoutes)
 app.listen(PORT,()=>{
     console.log(`Listening on PORT ${5000}`.cyan.bgGreen);
 })
+
+
