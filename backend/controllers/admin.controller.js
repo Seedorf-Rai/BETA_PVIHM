@@ -9,6 +9,9 @@ const Director = require('../models/director.model.js');
 const Affiliation = require('../models/affiliation.model.js');
 const Courses = require('../models/course.model.js');
 const Credit = require('../models/credit.model.js');
+const { checkout } = require('../router/admin.routes.js');
+const Student = require('../models/student.model.js');
+const { log } = require('console');
 
 module.exports.adminRegister = async(req,res)=>{
     try{
@@ -612,6 +615,90 @@ module.exports.deleteCreditTransfers = async (req, res)=>{
     await Credit.findByIdAndDelete(id);
     return res.status(200).json({msg: "Credit Transfer deleted successfully"})
    }
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({msg : "Internal Server Error"})
+  }
+}
+
+module.exports.postStudent = async(req,res)=>{
+  try{
+    const {username , email , password} = req.body;
+    if(!username || !email || !password){
+      return res.status(400).json({msg: "Please enter all fields"})
+    }
+    const check = await Student.findOne({
+      $or : [{username},{email}]
+    });
+    if(check){
+     return  res.status(400).json({msg : "Student Already exists"})
+    }
+    const student = await Student.create({
+      username,
+      email,
+      password
+    })
+    const newStudent = await Student.findOne({
+      $or : [{username},{email}]
+    }).select("-password")
+    if(!newStudent){
+      return res.status(404).json({msg : "Could not add student"})
+    }
+    return res.status(201).json({student: newStudent})
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({msg : "Internal Server Error"})
+  }
+}
+
+module.exports.getStudent = async (req,res)=>{
+  try{
+   const students = await Student.find();
+   if(!students){
+    return res.status(404).json({msg : "No students found"})
+   }
+   return res.status(200).json({students: students})
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({msg : "Internal Server Error"})
+  }
+}
+module.exports.updateStudent = async (req,res)=>{
+  try{
+   const id = req.params.id;
+   const getStudent = Student.findById(id)
+   if(!getStudent){
+    return res.status(404).json({msg : "Student not found"})
+   }
+   const {username , email , password} = req.body;
+   const updated = {}
+   if(username){updated.username = username}
+   if(email){updated.email = email}
+   if(password){updated.password = password}
+   const student = await Student.findByIdAndUpdate(id,{
+    $set : updated
+   },{
+    new : true
+   })
+   res.status(200).json({student: student})
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({msg : "Internal Server Error"})
+  }
+}
+module.exports.deleteStudent = async (req,res)=>{
+  try{
+   const id = req.params.id;
+   const student = await Student.findById(id);
+   if(!student){
+    return res.status(404).json({msg : "Student not found"})
+   }
+   await Student.findByIdAndDelete(id);
+   res.status(200).json({msg : "Student deleted successfully"})
   }
   catch(err){
     console.log(err);
