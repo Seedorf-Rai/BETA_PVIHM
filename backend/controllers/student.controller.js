@@ -20,7 +20,7 @@ module.exports.studentLogin = async (req, res) => {
             secure: true,
             httpOnly: true,
         }
-        return res.status(201).cookie("Token:",token,options).json({student: newStudent})
+        return res.status(201).cookie("token",token,options).json({student: newStudent})
     }
     catch (err) {
         console.log(err);

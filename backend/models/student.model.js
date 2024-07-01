@@ -14,6 +14,10 @@ const studentSchema = new mongoose.Schema({
     password : {
         type : String,
         required : true
+    },
+    role : {
+        type: String,
+        default: 'student'
     }
 })
 
@@ -33,7 +37,8 @@ studentSchema.methods.generateAccessToken =  function(){
     return jwt.sign({
         id : this._id,
         username : this.username,
-        email : this.email
+        email : this.email,
+        role: this.role
     },
     process.env.ACCESS_TOKEN_SECRET,{
         expiresIn : process.env.ACCESS_TOKEN_EXPIRY

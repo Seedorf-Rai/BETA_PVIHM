@@ -58,7 +58,7 @@ module.exports.adminLogin = async (req,res)=>{
       httpOnly : true,
       secure : true,
     };
-    res.status(201).cookie("Token:",token,options).json({success : newAdmin});
+    res.status(201).cookie("token",token,options).json({success : newAdmin,token:token});
    }
    catch(err){
       res.status(500).json({message: "Internal Server Error"})
@@ -70,7 +70,7 @@ module.exports.adminLogout = async function(req,res){
       httpOnly : true,
       secure : true
      }
-     res.status(200).clearCookie("Token:",option).json({message: "Logged out Successfully"})
+     res.status(200).clearCookie("token",option).json({message: "Logged out Successfully"})
    }
    catch(err){
       res.status(500).json({message: "Internal Server Error"})
