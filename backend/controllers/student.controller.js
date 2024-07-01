@@ -27,3 +27,17 @@ module.exports.studentLogin = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 }
+
+module.exports.studentLogout = async (req, res) => {
+    try{
+        const option = {
+            httpOnly : true,
+            secure : true
+           }
+           res.status(200).clearCookie("token",option).json({message: "Logged out Successfully"})
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
