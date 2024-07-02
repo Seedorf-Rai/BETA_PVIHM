@@ -12,6 +12,7 @@ const Credit = require('../models/credit.model.js');
 const { checkout } = require('../router/admin.routes.js');
 const Student = require('../models/student.model.js');
 const { log } = require('console');
+const Blog = require('../models/blog.model.js');
 
 module.exports.adminRegister = async(req,res)=>{
     try{
@@ -41,11 +42,11 @@ module.exports.adminRegister = async(req,res)=>{
 }
 module.exports.adminLogin = async (req,res)=>{
    try{
-    const {email,password} = req.body;
-    if(!email || !password){
+    const {username,password} = req.body;
+    if(!username || !password){
      res.status(401).json({error: "Credentials not completed"})
     }
-    const admin = await Admin.findOne({email})
+    const admin = await Admin.findOne({username})
     if(!admin){
       res.status(401).json({error: "Invalid Email or Password"})
     }
@@ -703,5 +704,105 @@ module.exports.deleteStudent = async (req,res)=>{
   catch(err){
     console.log(err);
     res.status(500).json({msg : "Internal Server Error"})
+  }
+}
+
+module.exports.postBlog = async (req,res)=>{
+  try{
+    const {title,description,readTime} = req.body;
+    if(!req.file){
+      return res.status(401).json({msg : "Feature photo not provided"})
+    }
+    const localPath = req.file.path;
+    const blog = Blog.create({
+      title,
+      description,
+      readTime,
+      featured : localPath,
+      created_by_admin : req.user?._id,
+      creator_name : "PVIHM"
+    })
+    if(blog){
+      return res.status(201).json({msg : "Blog created successfully"})
+    }
+    else{
+      return res.status(401).json({msg: "Could not upload blogs"})
+    }
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({msg: "Internal Server Error"})
+  }
+}
+module.exports.getBlog = async(req,res)=>{
+  try{
+   const blogs = await Blog.find().sort({ createdAt: -1 });
+   return res.status(200).json({blogs: blogs})
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({msg: "Internal Server Error"})
+  }
+}
+module.exports.updateBlog = async(req,res)=>{
+  try{
+    const id = req.params.id;
+    const blog = await Blog.findById(id);
+    if(!blog){
+      return res.status(401).json({msg: "Blog not found"})
+    }
+    const updatedData = req.body;
+    if(req.file){
+      const filePath = path.join(__dirname, '..', blog.featured)
+            await new Promise((resolve, reject) => {
+                fs.unlink(filePath, (err) => {
+                    if (err) {
+                        console.error('File deletion error:', err);
+                        return reject(err);
+                    }
+                    updatedData.featured = req.file.path;
+                    resolve();
+                });
+            });
+    }
+    const updatedBlog = await Blog.findByIdAndUpdate(id,{
+      $set : updatedData
+    },{
+      new : true
+    })
+    if(!updatedBlog){
+      return res.status(401).json({msg: "Could not update Blog"})
+    }
+    return res.status(200).json({blog: updatedBlog})
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({msg: "Internal Server Error"})
+  }
+}
+
+module.exports.deleteBlog = async (req,res)=>{
+  try{
+   const id = req.params.id;
+   const blog = await Blog.findById(id);
+   if(!blog){
+    return res.status(401).json({msg: "Blog not found"})
+    }
+    const filePath = path.join(__dirname, '..', blog.featured)
+    await new Promise((resolve, reject) => {
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error('File deletion error:', err);
+          return reject(err);
+          }
+          resolve();
+          });
+          });
+          await Blog.findByIdAndDelete(id);
+          return res.status(200).json({msg: "Blog deleted successfully"})
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({msg: "Internal Server Error"})
   }
 }

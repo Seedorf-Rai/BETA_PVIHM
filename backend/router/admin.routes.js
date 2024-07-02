@@ -43,4 +43,9 @@ router.get('/student',Auth,adminController.getStudent);
 router.patch('/student/:id',Auth,adminController.updateStudent);
 router.delete('/student/:id',Auth,adminController.deleteStudent);
 
+router.post('/blog',Auth,upload.single('blog-image'),adminController.postBlog);
+router.get('/blog',Auth,adminController.getBlog);
+router.patch('/blog/:id',Auth,upload.single('blog-image'),adminController.updateBlog);
+router.delete('/blog/:id',Auth,adminController.deleteBlog);
+
 module.exports = router
