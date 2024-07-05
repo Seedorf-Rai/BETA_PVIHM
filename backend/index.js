@@ -10,7 +10,6 @@ const connectDB = require('./db/index.js')
 const PORT = process.env.PORT || 5000
 connectDB()
 app.use(express.json())
-
 app.use('/',userRoutes)
 app.use('/admin',adminRoutes)
 app.use('/student',studentRoutes)

@@ -48,4 +48,7 @@ router.get('/blog',Auth,adminController.getBlog);
 router.patch('/blog/:id',Auth,upload.single('blog-image'),adminController.updateBlog);
 router.delete('/blog/:id',Auth,adminController.deleteBlog);
 
+router.post('/setting',Auth,upload.single('logo'),adminController.postSetting);
+router.patch('/setting/:id',Auth,upload.single('logo'),adminController.updateSetting);
+
 module.exports = router

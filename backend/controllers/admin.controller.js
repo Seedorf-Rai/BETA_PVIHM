@@ -13,6 +13,7 @@ const { checkout } = require('../router/admin.routes.js');
 const Student = require('../models/student.model.js');
 const { log } = require('console');
 const Blog = require('../models/blog.model.js');
+const Setting = require('../models/setting.model.js');
 
 module.exports.adminRegister = async(req,res)=>{
     try{
@@ -77,6 +78,87 @@ module.exports.adminLogout = async function(req,res){
       res.status(500).json({message: "Internal Server Error"})
    }
 }
+
+module.exports.postSetting = async (req,res)=>{
+  try{
+   if(!req.file){
+    return res.status(400).json({error: "Please upload a file"})
+   }
+   const s = await Setting.findOne();
+   if(s){
+    const filePath = path.join(__dirname, '..', req.file.path)
+    await new Promise((resolve, reject) => {
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error('File deletion error:', err);
+                return reject(err);
+            }
+            resolve();
+        });
+    });
+   return res.status(401).json({message: "Settings already exists"})
+   }
+   const {address,telephone_number,mobile_number,email,social_media} = req.body
+   const localPath = req.file.path
+   const setting = await Setting.create({
+    logo: localPath,
+    address:address,
+    telephone_number:telephone_number,
+    mobile_number:mobile_number,
+    email:email,
+    social_media : JSON.parse(social_media)
+   })
+   res.status(201).json({msg: "Setting successfully posted"})
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+
+module.exports.updateSetting = async(req, res) => {
+  try{
+   const id = req.params.id
+   const {address,telephone_number,mobile_number,email,social_media} = req.body
+
+   const setting = await Setting.findById(id)
+   if(!setting){
+    return res.status(404).json({message: "Setting not found"})
+   }
+   var localPath;
+   if(req.file){
+    const filePath = path.join(__dirname, '..', setting.logo)
+    await new Promise((resolve, reject) => {
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error('File deletion error:', err);
+          return reject(err);
+          }
+           localPath = req.file.path
+          resolve();
+          });
+          });
+   }
+   const newSetting = await Setting.findByIdAndUpdate(id,{
+    logo: localPath,
+    address:address,
+    telephone_number:telephone_number,
+    mobile_number:mobile_number,
+    email:email,
+    social_media : JSON.parse(social_media)
+   },{
+    new: true
+   })
+   res.status(200).json({setting: newSetting})
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
+
+
+
 module.exports.postCarousel = async (req,res)=>{
    try{
      if(!req.file){
