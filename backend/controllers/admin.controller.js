@@ -157,7 +157,16 @@ module.exports.updateSetting = async(req, res) => {
   }
 }
 
-
+module.exports.getSetting = async(req,res)=>{
+  try{
+   const setting = await Setting.findOne();
+   res.status(200).json({setting: setting})
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
 
 module.exports.postCarousel = async (req,res)=>{
    try{
