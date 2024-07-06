@@ -6,7 +6,11 @@ const userRoutes = require('./router/user.routes.js')
 const adminRoutes = require('./router/admin.routes.js')
 const studentRoutes = require('./router/student.routes.js')
 const connectDB = require('./db/index.js')
+const path = require('path')
+var cors = require('cors')
 
+app.use(cors())
+app.use('/public', express.static(__dirname + '/public'));
 const PORT = process.env.PORT || 5000
 connectDB()
 app.use(express.json())

@@ -1,9 +1,10 @@
 import { createSlice , createAsyncThunk } from '@reduxjs/toolkit'
+import axiosApi from '../conf/axios.js'
 
 
 export const fetchSetting = createAsyncThunk('fetchSetting',async()=>{
-    const response = await fetch('https://codeit.com.np/api/setting')
-    return response.json()
+    const response = await axiosApi.get('setting')
+    return response.data.setting
 })
 
 export const settingSlice = createSlice({
@@ -20,6 +21,7 @@ export const settingSlice = createSlice({
     builder.addCase(fetchSetting.fulfilled,(state,action)=>{
         state.loading = false
         state.company = action.payload
+        console.log(state.company);
     })
     builder.addCase(fetchSetting.rejected,(state,action)=>{
         console.log("Error: ",action.payload);
