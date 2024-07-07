@@ -1,4 +1,5 @@
 const Carousel = require("../models/carousel.model");
+const Courses = require("../models/course.model");
 const Setting = require("../models/setting.model");
 const Welcome = require("../models/Welcome.model");
 
@@ -32,5 +33,15 @@ module.exports.getWelcome = async function(req, res){
     catch(err){
         console.log(err);
         return res.status(500),json({msg: "Internal Server Error"})
+    }
+}
+module.exports.getCourses = async function(req, res){
+    try{
+    const courses = await Courses.find();
+    return res.status(200).json({courses : courses})
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({msg: "Internal Server Error"})
     }
 }
