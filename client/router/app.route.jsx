@@ -1,10 +1,14 @@
 import {
     createBrowserRouter,
   } from "react-router-dom";
-import App from "../src/App";
 import UserLayout from "../layouts/user";
 import { Provider } from "react-redux";
 import { store } from "../src/app/store";
+import About from "../pages/about";
+import Course from "../pages/courses";
+import Blogs from "../pages/blogs";
+import Contact from "../pages/contact";
+import Home from "../pages";
 
   const router = createBrowserRouter([
     {
@@ -14,8 +18,24 @@ import { store } from "../src/app/store";
       </Provider>,
       children : [
         {
-          path: "contact",
-          element : <App></App>
+         path: "/",
+         element: <Home></Home>
+        },
+        {
+          path: "about-us",
+          element : <About></About>
+        },
+        {
+          path : "courses",
+          element : <Course></Course>
+        },
+        {
+          path : "blogs",
+          element : <Blogs></Blogs>
+        },
+        {
+          path : "contact",
+          element : <Contact></Contact>
         }
       ]
     }
