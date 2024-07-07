@@ -6,6 +6,7 @@ import { useEffect } from "react"
 import { fetchSetting } from "../src/slice/settingSlice"
 import { fetchCarousel } from "../src/slice/carouselSlice"
 import { fetchWelcome } from "../src/slice/welcomeSlice"
+import { fetchCourses } from "../src/slice/courseSlice"
 
 
 function UserLayout(){
@@ -14,6 +15,7 @@ function UserLayout(){
     dispatch(fetchSetting());
     dispatch(fetchCarousel());
     dispatch(fetchWelcome());
+    dispatch(fetchCourses());
     },[])
     return(
         <>

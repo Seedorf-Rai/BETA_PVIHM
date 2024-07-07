@@ -6,7 +6,7 @@ import { Card } from "flowbite-react";
 export function LearnCard() {
   return (
    <div className="xl:px-24 py-4 pb-8">
-    <h1 className="text-center font-extrabold mb-8 text-[#d49535] text-3xl f-p">Revolutionalize Learning</h1>
+    <h1 className="text-center font-extrabold mb-8 text-[#d49535] text-3xl ">Revolutionalize Learning</h1>
      <div className=" gap-5 grid text-center grid-cols-3">
      <Card  className="max-w-sm learn-card1">
       <h5 className="text-2xl font-bold tracking-tight text-white  ">
