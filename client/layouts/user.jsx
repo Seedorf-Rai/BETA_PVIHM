@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom"
 import { useEffect } from "react"
 import { fetchSetting } from "../src/slice/settingSlice"
 import { fetchCarousel } from "../src/slice/carouselSlice"
+import { fetchWelcome } from "../src/slice/welcomeSlice"
 
 
 function UserLayout(){
@@ -12,6 +13,7 @@ function UserLayout(){
     useEffect(()=>{
     dispatch(fetchSetting());
     dispatch(fetchCarousel());
+    dispatch(fetchWelcome());
     },[])
     return(
         <>

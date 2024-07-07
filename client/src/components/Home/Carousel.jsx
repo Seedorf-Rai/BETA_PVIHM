@@ -16,7 +16,6 @@ export function CarouselComponent() {
       <Carousel slideInterval={5000}>
         {
            carousel ? carousel.map((item)=>{
-             console.log(item.image,'hello');
             return(
                     <img
                     src={`http://localhost:5000/${item.image}`}
