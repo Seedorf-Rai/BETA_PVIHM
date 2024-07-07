@@ -9,4 +9,6 @@ router.get('/carousel',userController.getCarousel)
 router.get('/welcome',userController.getWelcome)
 router.get('/courses',userController.getCourses)
 router.get('/message-ceo',userController.getCEO)
+router.get('/message-ceo',userController.getCEO)
+router.get('/message-director',userController.getDirector)
 module.exports = router
