@@ -1,4 +1,5 @@
 const Carousel = require("../models/carousel.model");
+const MsgCEO = require("../models/ceoMessage.model");
 const Courses = require("../models/course.model");
 const Setting = require("../models/setting.model");
 const Welcome = require("../models/Welcome.model");
@@ -39,6 +40,16 @@ module.exports.getCourses = async function(req, res){
     try{
     const courses = await Courses.find();
     return res.status(200).json({courses : courses})
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({msg: "Internal Server Error"})
+    }
+}
+module.exports.getCEO = async function(req, res){
+    try{
+     const ceo = await MsgCEO.find();
+     return res.status(200).json({ceo: ceo[0]})
     }
     catch(err){
         console.log(err);

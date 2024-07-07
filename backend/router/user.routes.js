@@ -8,4 +8,5 @@ router.get('/setting',userController.setting)
 router.get('/carousel',userController.getCarousel)
 router.get('/welcome',userController.getWelcome)
 router.get('/courses',userController.getCourses)
+router.get('/message-ceo',userController.getCEO)
 module.exports = router
