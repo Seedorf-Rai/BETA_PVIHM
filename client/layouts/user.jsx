@@ -8,6 +8,7 @@ import { fetchCarousel } from "../src/slice/carouselSlice"
 import { fetchWelcome } from "../src/slice/welcomeSlice"
 import { fetchCourses } from "../src/slice/courseSlice"
 import { fetchCEOMsg } from "../src/slice/ceoMsgSlice"
+import { fetchDirector } from "../src/slice/directorSlice"
 
 
 function UserLayout(){
@@ -17,7 +18,8 @@ function UserLayout(){
     dispatch(fetchCarousel());
     dispatch(fetchWelcome());
     dispatch(fetchCourses());
-    dispatch(fetchCEOMsg())
+    dispatch(fetchCEOMsg());
+    dispatch(fetchDirector())
     },[])
     return(
         <>

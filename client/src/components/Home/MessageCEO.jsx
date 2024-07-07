@@ -15,7 +15,7 @@ export default function MessageCEO(){
           />
           <div className="fb">
             <h1 className="f-p mb-6 text-yellow-400 text-3xl font-bold">
-              Message From CEO
+              Message From The CEO
             </h1>
             <p className="">
               {

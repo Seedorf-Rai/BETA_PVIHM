@@ -4,6 +4,7 @@ import carouselReducer from '../slice/carouselSlice.js'
 import welcomeReducer from '../slice/welcomeSlice.js'
 import courseReducer from '../slice/courseSlice.js'
 import ceoMsgReducer from '../slice/ceoMsgSlice.js'
+import directorReducer from '../slice/directorSlice.js'
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     carousel : carouselReducer,
     welcome : welcomeReducer,
     courses : courseReducer,
-    ceoMsg : ceoMsgReducer
+    ceoMsg : ceoMsgReducer,
+    director : directorReducer
   },
 })
