@@ -1,3 +1,4 @@
+import { LearnCard } from "../src/components/Cards/LearnCard"
 import {  CarouselComponent } from "../src/components/Home/Carousel"
 import Welcome from "../src/components/Home/Welcome"
 
@@ -7,6 +8,7 @@ function Home(){
         <>
          <CarouselComponent></CarouselComponent>
          <Welcome></Welcome>
+         <LearnCard></LearnCard>
         </>
     )
 }
