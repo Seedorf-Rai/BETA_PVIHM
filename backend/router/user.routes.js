@@ -6,4 +6,5 @@ router.get('/',(req,res)=>{
 })
 router.get('/setting',userController.setting)
 router.get('/carousel',userController.getCarousel)
+router.get('/welcome',userController.getWelcome)
 module.exports = router
