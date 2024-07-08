@@ -40,7 +40,7 @@ body::-webkit-scrollbar {
   height: 25vh;
   width: 100%;
   /* background-color: red; */
-  /* background: url('https://pvihm.info/INDEX%201.JPG'); */
+  background: url('https://pvihm.info/INDEX%201.JPG');
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -90,4 +90,10 @@ body::-webkit-scrollbar {
 }
 .acc-content{
   color: rgb(192, 192, 192);
+}
+.sidebar{
+  background-color: #283046 !important;
+}
+.admin-box{
+  background-color: #1F2937 !important;
 }

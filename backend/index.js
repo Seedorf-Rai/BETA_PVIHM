@@ -9,7 +9,7 @@ const connectDB = require('./db/index.js')
 const path = require('path')
 var cors = require('cors')
 
-app.use(cors())
+app.use(cors({credentials:true  , origin: 'http://localhost:5173'}))
 app.use('/public', express.static(__dirname + '/public'));
 const PORT = process.env.PORT || 5000
 connectDB()

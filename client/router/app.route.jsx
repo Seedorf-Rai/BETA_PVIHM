@@ -10,6 +10,11 @@ import Blogs from "../pages/blogs";
 import Contact from "../pages/contact";
 import Home from "../pages";
 import CourseDetail from "../pages/course-detail";
+import AdminLayout from "../layouts/admin";
+import CarouselSection from "../pages/admin/carousel";
+import {adminStore} from "../src/app/adminStore";
+import AdminLogin from "../pages/admin/Login";
+import AdminSetting from "../pages/admin/setting";
 
   const router = createBrowserRouter([
     {
@@ -43,7 +48,30 @@ import CourseDetail from "../pages/course-detail";
           element : <CourseDetail></CourseDetail>
         }
       ]
-    }
+    },
+    {
+      path : "/admin",
+      element : <Provider store={adminStore}>
+         <AdminLayout></AdminLayout>
+      </Provider>,
+      children : [
+        {
+          path : "/admin",
+          element : <AdminSetting></AdminSetting>
+        },
+
+        {
+          path : "/admin/carousel",
+          element : <CarouselSection></CarouselSection>
+        }
+      ]
+    },
+
+      {
+        path : '/admin/login',
+        element : <AdminLogin></AdminLogin>
+      },
+
   ]);
 
 export default router

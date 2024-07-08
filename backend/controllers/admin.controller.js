@@ -43,24 +43,28 @@ module.exports.adminRegister = async(req,res)=>{
 }
 module.exports.adminLogin = async (req,res)=>{
    try{
+
     const {username,password} = req.body;
     if(!username || !password){
-     res.status(401).json({error: "Credentials not completed"})
+    return res.status(401).json({error: "Credentials not completed"})
     }
+    console.log('Username:',username);
+    console.log('Password:',password);
     const admin = await Admin.findOne({username})
     if(!admin){
-      res.status(401).json({error: "Invalid Email or Password"})
+      return res.status(401).json({error: "Invalid Email or Password"})
     }
     if(!admin.isPasswordCorrect(password)){
-      res.status(401).json({error: "Invalid Email or Password"})
+     return res.status(401).json({error: "Invalid Email or Password"})
     }
     const token = await admin.generateAccessToken();
     const newAdmin = await Admin.findById(admin._id).select("-password");
     const options = {
       httpOnly : true,
       secure : true,
+      sameSite: 'None',
     };
-    res.status(201).cookie("token",token,options).json({success : newAdmin,token:token});
+   return res.status(201).cookie("token",token).json({success : newAdmin,token:token});
    }
    catch(err){
       res.status(500).json({message: "Internal Server Error"})
