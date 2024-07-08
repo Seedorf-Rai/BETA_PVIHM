@@ -97,3 +97,6 @@ body::-webkit-scrollbar {
 .admin-box{
   background-color: #1F2937 !important;
 }
+.admin-content{
+  overflow-y: scroll;
+}

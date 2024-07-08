@@ -123,7 +123,7 @@ module.exports.postSetting = async (req,res)=>{
 module.exports.updateSetting = async(req, res) => {
   try{
    const id = req.params.id
-   const {address,telephone_number,mobile_number,email,social_media} = req.body
+   const updatedData = req.body
 
    const setting = await Setting.findById(id)
    if(!setting){
@@ -139,17 +139,13 @@ module.exports.updateSetting = async(req, res) => {
           return reject(err);
           }
            localPath = req.file.path
+           updatedData.logo = req.file.path
           resolve();
           });
           });
    }
    const newSetting = await Setting.findByIdAndUpdate(id,{
-    logo: localPath,
-    address:address,
-    telephone_number:telephone_number,
-    mobile_number:mobile_number,
-    email:email,
-    social_media : JSON.parse(social_media)
+    $set: updatedData
    },{
     new: true
    })

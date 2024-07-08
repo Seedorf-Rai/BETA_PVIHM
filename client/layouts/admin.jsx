@@ -54,11 +54,11 @@ function AdminLayout() {
   }
   return (
     <>
-      <div className="flex gap-10">
-        <div className="">
+      <div className="grid h-[100vh] overflow-hiddenhidden grid-cols-4 gap-10">
+        <div className="col-span-1">
           <SideBar></SideBar>
         </div>
-        <div className="">
+        <div className="col-span-3 admin-content">
           <Outlet></Outlet>
         </div>
       </div>

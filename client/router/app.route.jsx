@@ -15,6 +15,7 @@ import CarouselSection from "../pages/admin/carousel";
 import {adminStore} from "../src/app/adminStore";
 import AdminLogin from "../pages/admin/Login";
 import AdminSetting from "../pages/admin/setting";
+import AdminSettingEdit from "../pages/admin/editSetting";
 
   const router = createBrowserRouter([
     {
@@ -59,7 +60,10 @@ import AdminSetting from "../pages/admin/setting";
           path : "/admin",
           element : <AdminSetting></AdminSetting>
         },
-
+         {
+          path : "/admin/edit/:id",
+          element : <AdminSettingEdit></AdminSettingEdit>
+         },
         {
           path : "/admin/carousel",
           element : <CarouselSection></CarouselSection>
