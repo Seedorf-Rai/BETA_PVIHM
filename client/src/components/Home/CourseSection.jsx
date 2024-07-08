@@ -13,6 +13,7 @@ function CourseSection() {
     slidesToScroll: 1,
   };
   const courses = useSelector((state)=>state.courses.courses)
+  console.log(courses);
   return (
     <div className="xl:px-20 my-12">
       <h1 className="text-4xl text-center font-extrabold text-[#d49535]">
@@ -21,7 +22,7 @@ function CourseSection() {
       <Slider className="ps-14 my-10" {...settings}>
         {
             courses ?  courses.map((course)=>{
-                return <CourseCard image={course.featured} title={course.title} ></CourseCard>
+                return <CourseCard id={course._id} key={course._id} image={course.featured} title={course.title} ></CourseCard>
                }):''
         }
 

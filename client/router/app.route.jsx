@@ -9,6 +9,7 @@ import Course from "../pages/courses";
 import Blogs from "../pages/blogs";
 import Contact from "../pages/contact";
 import Home from "../pages";
+import CourseDetail from "../pages/course-detail";
 
   const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ import Home from "../pages";
         {
           path : "contact",
           element : <Contact></Contact>
+        },
+        {
+          path : "course/:id",
+          element : <CourseDetail></CourseDetail>
         }
       ]
     }

@@ -21,7 +21,6 @@ export const courseSlice = createSlice({
     builder.addCase(fetchCourses.fulfilled,(state,action)=>{
         state.loading = false
         state.courses = action.payload
-        console.log(state.courses);
         // console.log(state.company);
     })
     builder.addCase(fetchCourses.rejected,(state,action)=>{

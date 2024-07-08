@@ -39,8 +39,8 @@ body::-webkit-scrollbar {
   margin: 50px 0;
   height: 25vh;
   width: 100%;
-  background-color: red;
-  background: url('https://pvihm.info/INDEX%201.JPG');
+  /* background-color: red; */
+  /* background: url('https://pvihm.info/INDEX%201.JPG'); */
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -69,4 +69,25 @@ body::-webkit-scrollbar {
 }
 .course-card{
   border: 1px solid orange;
+}
+.course-top{
+  width: 100%;
+  position: relative;
+  background-attachment: fixed;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.course-title{
+  z-index: 100;
+  position: relative;
+  color: white;
+  text-align: center;
+}
+.acc-head{
+  color: #DC970F;
+}
+.acc-content{
+  color: rgb(192, 192, 192);
 }

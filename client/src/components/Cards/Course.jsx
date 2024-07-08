@@ -2,10 +2,13 @@
 "use client";
 
 import { Card } from "flowbite-react";
+import { Link } from "react-router-dom";
 
-export function CourseCard({image, title}) {
+
+export function CourseCard({id,image, title}) {
   return (
-    <Card
+    <Link to={`/course/${id}`}>
+     <Card
       className="max-w-sm bg-transparent course-card"
       imgAlt="Meaningful alt text for an image that is not purely decorative"
       imgSrc={`http://localhost:5000/${image}`}
@@ -14,5 +17,6 @@ export function CourseCard({image, title}) {
         {title}
       </h5>
     </Card>
+    </Link>
   );
 }
