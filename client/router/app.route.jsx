@@ -17,6 +17,7 @@ import AdminLogin from "../pages/admin/Login";
 import AdminSetting from "../pages/admin/setting";
 import AdminSettingEdit from "../pages/admin/editSetting";
 import AddCarousel from "../pages/admin/addCarousel";
+import WelcomeSection from "../pages/admin/welcome";
 
   const router = createBrowserRouter([
     {
@@ -72,6 +73,10 @@ import AddCarousel from "../pages/admin/addCarousel";
         {
           path : "/admin/carousel/add",
           element : <AddCarousel></AddCarousel>
+        },
+        {
+          path : "/admin/welcome",
+          element : <WelcomeSection></WelcomeSection>
         }
       ]
     },

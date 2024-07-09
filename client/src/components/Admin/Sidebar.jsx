@@ -29,6 +29,11 @@ export function SideBar() {
              Carousel
           </Sidebar.Item>
           </Link>
+          <Link to={`/admin/welcome`} >
+          <Sidebar.Item  icon={HiTable}>
+            Welcome Section
+          </Sidebar.Item>
+          </Link>
           <Link >
           <Sidebar.Item href="#" icon={HiInbox} label="3">
             Inbox
