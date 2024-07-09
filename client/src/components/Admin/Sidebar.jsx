@@ -24,10 +24,12 @@ export function SideBar() {
             Setting
           </Sidebar.Item>
           </Link>
-          <Sidebar.Item href="#" icon={HiViewBoards} label="Pro" >
-            Kanban
-          </Sidebar.Item>
           <Link to={'/admin/carousel'}>
+          <Sidebar.Item icon={HiViewBoards}  >
+             Carousel
+          </Sidebar.Item>
+          </Link>
+          <Link >
           <Sidebar.Item href="#" icon={HiInbox} label="3">
             Inbox
           </Sidebar.Item>

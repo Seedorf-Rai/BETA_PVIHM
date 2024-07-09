@@ -181,7 +181,7 @@ module.exports.getSetting = async(req,res)=>{
 module.exports.postCarousel = async (req,res)=>{
    try{
      if(!req.file){
-      res.status(400).json({error: "Please upload an image"})
+     return res.status(400).json({error: "Please upload an image"})
      }
      console.log(req.file);
      const localPath = req.file.path;
@@ -189,7 +189,7 @@ module.exports.postCarousel = async (req,res)=>{
        image: localPath
      })
      console.log(newCarousel);
-     res.status(201).json({message: "Carousel created successfully"})
+     return res.status(201).json({carousel: newCarousel})
    }
    catch(err){
       res.status(500).json({message: "Internal Server Error"})
