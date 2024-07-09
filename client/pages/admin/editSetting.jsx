@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, redirect, useNavigate, useParams } from "react-router-dom"
+import axiosApi from "../../src/conf/axios";
+import { fetchSetting, patchSetting } from "../../src/slice/admin/settingSlice";
 
 
 function AdminSettingEdit(){
 
-
+    const [nextPage,setNextPage] = useState(false);
+    const dispatch = useDispatch()
     const {id} = useParams();
+    const [logo,setLogo] = useState(null);
     const [address,setAddress] = useState()
     const [telephone_number,setTelephoneNumber] = useState();
     const [mobile_number,setMobileNumber] = useState();
@@ -27,17 +31,40 @@ function AdminSettingEdit(){
             setYoutube(setting.social_media.youtube)
             setLinkedIn(setting.social_media.linkedin)
           }
-    },[])
+    },[setting])
     console.log(id)
-    function handleSubmit(e){
+    useEffect(() => {
+       dispatch(fetchSetting());
+   }, [dispatch]);
+  async   function handleSubmit(e){
         e.preventDefault();
-        console.log("Hello");
+        const formData = new FormData();
+        formData.append('address',address);
+        formData.append('telephone_number',telephone_number);
+        formData.append('mobile_number',mobile_number);
+        formData.append('email',email);
+       formData.append('facebook',facebook);
+       formData.append('instagram',instagram);
+       formData.append('youtube',youtube);
+       formData.append('linkedin',linkedin);
+        if (logo) {
+              formData.append('logo', logo);
+          }
+          console.log(formData);
+       const result = await  dispatch(patchSetting({id,data : formData}))
+       if(patchSetting.fulfilled.match(result)){
+              console.log("yes");
+              setNextPage(true)
+       }
+    }
+    if(nextPage){
+       return <Navigate to={'/admin'}></Navigate>
     }
     return(
         <>
           <div className="flex">
             <label htmlFor="">Upload Logo</label>
-            <input  type="file" name="logo" id="" />
+            <input  type="file" onChange={(e)=>setLogo(e.target.files[0])} name="logo" id="" />
           </div>
           <div className="flex mt-4">
                  <label htmlFor="">Address</label>
@@ -71,7 +98,10 @@ function AdminSettingEdit(){
                  <label htmlFor="">Lnkedin Link</label>
                  <input onChange={(e)=>{setLinkedIn(e.target.value) ; console.log(linkedin); } } className="bg-transparent"  type="text" value={linkedin} />
           </div>
-          <button onClick={handleSubmit}>Submit Changes</button>
+          <div className="flex mt-10">
+          <button className="bg-green-500"onClick={handleSubmit}>Submit Changes</button>
+          <button className="bg-red-600 ms-10" onClick={()=>{setNextPage(true)}} >Cancel</button>
+          </div>
         </>
     )
 }

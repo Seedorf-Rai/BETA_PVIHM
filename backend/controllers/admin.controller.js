@@ -124,7 +124,17 @@ module.exports.updateSetting = async(req, res) => {
   try{
    const id = req.params.id
    const updatedData = req.body
-
+   updatedData.social_media = {
+    facebook: updatedData.facebook,
+    instagram: updatedData.instagram,
+    youtube: updatedData.youtube,
+    linkedin: updatedData.linkedin
+   }
+   delete updatedData.facebook;
+   delete updatedData.instagram;
+   delete updatedData.youtube;
+   delete updatedData.linkedin;
+   console.log(updatedData);
    const setting = await Setting.findById(id)
    if(!setting){
     return res.status(404).json({message: "Setting not found"})
