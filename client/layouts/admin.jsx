@@ -7,6 +7,7 @@ import axiosApi from "../src/conf/axios";
 import { fetchCarousel } from "../src/slice/admin/carouselSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { fetchWelcome } from "../src/slice/admin/welcomeSlice";
 
 function AdminLayout() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function AdminLayout() {
     checkLogin();
     dispatch(fetchSetting());
     dispatch(fetchCarousel());
+    dispatch(fetchWelcome());
   }, [dispatch]);
   if (isAuthenticated === null) {
     // Optionally show a loading spinner or placeholder

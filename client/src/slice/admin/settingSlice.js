@@ -3,7 +3,12 @@ import axiosApi from '../../conf/axios.js'
 import getCookie from '../../../utils/cookie.js'
 
 export const fetchSetting = createAsyncThunk('fetchSetting', async () => {
-  const response = await axiosApi.get('setting')
+  const response = await axiosApi.get('admin/setting',{
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${getCookie('token')}`
+    }
+  })
   return response.data.setting
 })
 
