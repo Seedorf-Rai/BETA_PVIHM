@@ -19,6 +19,8 @@ import AdminSettingEdit from "../pages/admin/editSetting";
 import AddCarousel from "../pages/admin/addCarousel";
 import WelcomeSection from "../pages/admin/welcome";
 import EditWelcome from "../pages/admin/welcome/edit";
+import CeoMsg from "../pages/admin/ceo";
+import EditCeoMsg from "../pages/admin/ceo/edit";
 
   const router = createBrowserRouter([
     {
@@ -82,6 +84,14 @@ import EditWelcome from "../pages/admin/welcome/edit";
         {
           path : "/admin/welcome/edit/:id",
           element : <EditWelcome></EditWelcome>
+        },
+        {
+          path : "/admin/ceoMessage",
+          element : <CeoMsg></CeoMsg>
+        },
+        {
+          path : "/admin/ceoMessage/edit/:id",
+          element : <EditCeoMsg></EditCeoMsg>
         }
       ]
     },

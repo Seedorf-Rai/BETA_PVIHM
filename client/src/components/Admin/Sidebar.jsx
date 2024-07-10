@@ -35,9 +35,11 @@ export function SideBar() {
           </Sidebar.Item>
           </Link>
           <Link >
-          <Sidebar.Item href="#" icon={HiInbox} label="3">
-            Inbox
+          <Link to={'/admin/ceoMessage'} >
+          <Sidebar.Item  icon={HiInbox} >
+            CEO Message
           </Sidebar.Item>
+          </Link>
           </Link>
           <Sidebar.Item href="#" icon={HiUser}>
             Users

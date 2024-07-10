@@ -139,16 +139,14 @@ module.exports.updateSetting = async (req, res) => {
     if (!setting) {
       return res.status(404).json({ message: "Setting not found" })
     }
-    var localPath;
     if (req.file) {
-      const filePath = path.join(__dirname, '..', getWelcomeSection.image)
+      const filePath = path.join(__dirname, '..', setting.logo)
       await new Promise((resolve, reject) => {
         fs.unlink(filePath, (err) => {
           if (err) {
             console.error('File deletion error:', err);
             return reject(err);
           }
-          localPath = req.file.path
           updatedData.logo = req.file.path
           resolve();
         });

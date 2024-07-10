@@ -19,7 +19,8 @@ function UserLayout(){
     dispatch(fetchWelcome());
     dispatch(fetchCourses());
     dispatch(fetchCEOMsg());
-    dispatch(fetchDirector())
+    dispatch(fetchDirector());
+
     },[])
     return(
         <>
