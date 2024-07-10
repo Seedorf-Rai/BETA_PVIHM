@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { fetchWelcome } from "../src/slice/admin/welcomeSlice";
 import { fetchCeoMsg } from "../src/slice/admin/ceoSlice";
+import { fetchDirector } from "../src/slice/admin/directorSlice";
 
 function AdminLayout() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function AdminLayout() {
     dispatch(fetchCarousel());
     dispatch(fetchWelcome());
     dispatch(fetchCeoMsg());
+    dispatch(fetchDirector());
   }, [dispatch]);
   if (isAuthenticated === null) {
     // Optionally show a loading spinner or placeholder

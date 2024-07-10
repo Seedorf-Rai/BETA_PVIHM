@@ -40,6 +40,11 @@ export function SideBar() {
             CEO Message
           </Sidebar.Item>
           </Link>
+          <Link to={'/admin/director'} >
+          <Sidebar.Item  icon={HiInbox} >
+            Director Message
+          </Sidebar.Item>
+          </Link>
           </Link>
           <Sidebar.Item href="#" icon={HiUser}>
             Users

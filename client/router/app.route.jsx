@@ -21,6 +21,8 @@ import WelcomeSection from "../pages/admin/welcome";
 import EditWelcome from "../pages/admin/welcome/edit";
 import CeoMsg from "../pages/admin/ceo";
 import EditCeoMsg from "../pages/admin/ceo/edit";
+import Director from "../pages/admin/director";
+import EditDirector from "../pages/admin/director/edit";
 
   const router = createBrowserRouter([
     {
@@ -92,6 +94,14 @@ import EditCeoMsg from "../pages/admin/ceo/edit";
         {
           path : "/admin/ceoMessage/edit/:id",
           element : <EditCeoMsg></EditCeoMsg>
+        },
+        {
+          path : "/admin/director",
+          element : <Director></Director>
+        },
+        {
+          path : "/admin/director/edit/:id",
+          element : <EditDirector></EditDirector>
         }
       ]
     },
