@@ -14,6 +14,7 @@ export const fetchWelcome = createAsyncThunk('fetchWelcome', async () => {
 
 export const patchWelcome = createAsyncThunk('patchWelcome', async ({id, data}) => {
   try {
+    console.log(data);
     const response = await axiosApi.patch(`admin/welcome/${id}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',

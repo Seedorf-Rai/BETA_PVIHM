@@ -50,7 +50,7 @@ function AdminSettingEdit() {
     if (logo) {
       formData.append("logo", logo);
     }
-    console.log(formData);
+    console.log(formData.values());
     const result = await dispatch(patchSetting({ id, data: formData }));
     if (patchSetting.fulfilled.match(result)) {
       console.log("yes");
