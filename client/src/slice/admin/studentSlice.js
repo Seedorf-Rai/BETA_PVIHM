@@ -43,6 +43,21 @@ export const patchStudent = createAsyncThunk('patchStudent', async ({id, data}) 
     console.log(err);
   }
 })
+export const deleteStudent = createAsyncThunk('deleteStudent', async ({id}) => {
+  try {
+    const response = await axiosApi.delete(`admin/student/${id}`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${getCookie('token')}`
+      }
+    })
+    return response.data.student
+
+  }
+  catch (err) {
+    console.log(err);
+  }
+})
 
 export const studentSlice = createSlice({
   name: 'student',
@@ -87,6 +102,18 @@ export const studentSlice = createSlice({
         state.students.push(action.payload)
       });
       builder.addCase(postStudent.rejected, (state, action) => {
+        console.log("Error: ", action.payload);
+        state.isError = true;
+        state.loading = false;
+      });
+      builder.addCase(deleteStudent.pending, (state) => {
+        state.loading = true;
+      });
+      builder.addCase(deleteStudent.fulfilled, (state, action) => {
+        state.loading = false;
+        state.students = state.students.filter((student)=>student._id !== action.payload._id)
+      });
+      builder.addCase(deleteStudent.rejected, (state, action) => {
         console.log("Error: ", action.payload);
         state.isError = true;
         state.loading = false;

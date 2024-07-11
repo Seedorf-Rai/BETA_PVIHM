@@ -24,6 +24,8 @@ import EditCeoMsg from "../pages/admin/ceo/edit";
 import Director from "../pages/admin/director";
 import EditDirector from "../pages/admin/director/edit";
 import StudentList from "../pages/admin/students";
+import EditStudent from "../pages/admin/students/edit";
+import AddStudent from "../pages/admin/students/create";
 
   const router = createBrowserRouter([
     {
@@ -107,6 +109,14 @@ import StudentList from "../pages/admin/students";
         {
           path : "/admin/student",
           element : <StudentList></StudentList>
+        },
+        {
+          path : "/admin/student/edit/:id",
+          element : <EditStudent></EditStudent>
+        },
+        {
+          path : "/admin/student/add",
+          element : <AddStudent></AddStudent>
         }
       ]
     },
