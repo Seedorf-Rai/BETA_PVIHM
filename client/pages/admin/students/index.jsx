@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import { Table } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { deleteStudent } from "../../../src/slice/admin/studentSlice";
+import { useEffect, useState } from "react";
+import { deleteStudent, fetchStudent } from "../../../src/slice/admin/studentSlice";
+import { ToastContainer } from "react-toastify";
 
 function StudentList() {
   const students = useSelector((state) => state.student.students);
   const [passwordVisibility, setPasswordVisibility] = useState({});
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(fetchStudent());
+  }, [dispatch]);
   const togglePasswordVisibility = (studentId) => {
     setPasswordVisibility((prev) => ({
       ...prev,
@@ -38,7 +41,7 @@ function StudentList() {
           </Table.Head>
           <Table.Body className="divide-y">
             {students ? students.map((student) => (
-              <Table.Row key={student._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+              <Table.Row key={student?._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <Table.Cell>
                   <Link to={`/admin/student/edit/${student._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                     Edit
@@ -54,12 +57,12 @@ function StudentList() {
                   {student.email}
                 </Table.Cell>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  <input
-                    type={passwordVisibility[student._id] ? "text" : "password"}
-                    className="bg-transparent border-none"
-                    disabled
-                    value={student.password}
-                  />
+                <input
+                      type={passwordVisibility[student._id] ? "text" : "password"}
+                      className="bg-transparent border-none"
+                      disabled
+                      value={student.password}
+                    />
                 </Table.Cell>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   <button className="underline" onClick={() => togglePasswordVisibility(student._id)}>
@@ -70,6 +73,7 @@ function StudentList() {
             )) : ''}
           </Table.Body>
         </Table>
+        <ToastContainer></ToastContainer>
       </div>
     </>
   );

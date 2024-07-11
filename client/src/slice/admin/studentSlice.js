@@ -14,6 +14,9 @@ export const fetchStudent = createAsyncThunk('fetchStudent', async () => {
 
 export const postStudent = createAsyncThunk('postStudent', async ({data}) => {
     try {
+      for (let pair of data.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
       const response = await axiosApi.post(`admin/student`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -25,6 +28,13 @@ export const postStudent = createAsyncThunk('postStudent', async ({data}) => {
     }
     catch (err) {
       console.log(err);
+      if(err.response && err.response.data){
+
+        return rejectWithValue(err.response.data.msg)
+      }
+      else{
+        return rejectWithValue('An error occurred')
+      }
     }
   })
 
@@ -65,6 +75,7 @@ export const studentSlice = createSlice({
     students: [],
     loading: false,
     isError: false,
+    errorMessage : ''
   },
   extraReducers: (builder) => {
     builder.addCase(fetchStudent.pending, (state, action) => {
@@ -100,11 +111,14 @@ export const studentSlice = createSlice({
       builder.addCase(postStudent.fulfilled, (state, action) => {
         state.loading = false;
         state.students.push(action.payload)
+        state.errorMessage = '';
+        state.isError = false;
       });
       builder.addCase(postStudent.rejected, (state, action) => {
         console.log("Error: ", action.payload);
         state.isError = true;
         state.loading = false;
+        state.errorMessage = action.payload;
       });
       builder.addCase(deleteStudent.pending, (state) => {
         state.loading = true;

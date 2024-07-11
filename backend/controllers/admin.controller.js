@@ -740,6 +740,9 @@ module.exports.deleteCreditTransfers = async (req, res) => {
 module.exports.postStudent = async (req, res) => {
   try {
     const { username, email, password } = req.body;
+    console.log(username);
+    console.log(email);
+    console.log(password);
     if (!username || !email || !password) {
       return res.status(400).json({ msg: "Please enter all fields" })
     }

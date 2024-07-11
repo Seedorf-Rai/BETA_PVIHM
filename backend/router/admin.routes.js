@@ -2,6 +2,9 @@ const router = require('express').Router();
 const adminController = require('../controllers/admin.controller.js');
 const { Auth } = require('../middlewares/Auth.middleware.js');
 const upload = require('../middlewares/multer.middleware.js')
+const multer = require('multer');
+
+const upload2 = multer()
 
 router.get('/',Auth,  (req, res)=>{
    res.status(200).json({msg: "Admin"})
@@ -38,7 +41,7 @@ router.post('/credit-transfers',Auth,upload.single('credit-transfers'),adminCont
 router.get('/credit-transfers',Auth,adminController.getCreditTransfers);
 router.delete('/credit-transfers/:id',Auth,adminController.deleteCreditTransfers);
 
-router.post('/student',Auth,adminController.postStudent);
+router.post('/student',Auth,upload2.none(),adminController.postStudent);
 router.get('/student',Auth,adminController.getStudent);
 router.patch('/student/:id',Auth,adminController.updateStudent);
 router.delete('/student/:id',Auth,adminController.deleteStudent);
