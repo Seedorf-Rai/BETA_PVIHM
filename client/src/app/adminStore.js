@@ -4,6 +4,7 @@ import carouselReducer from '../slice/admin/carouselSlice.js'
 import welcomeReducer from '../slice/admin/welcomeSlice.js'
 import ceoMsgReducer from '../slice/admin/ceoSlice.js'
 import directorReducer from '../slice/admin/directorSlice.js'
+import studentReducer from '../slice/admin/studentSlice.js'
 
 export const adminStore = configureStore({
  reducer : {
@@ -11,6 +12,7 @@ export const adminStore = configureStore({
     carousel: carouselReducer,
     welcome : welcomeReducer,
     ceoMsg : ceoMsgReducer,
-    director : directorReducer
+    director : directorReducer,
+    student : studentReducer,
  }
 })

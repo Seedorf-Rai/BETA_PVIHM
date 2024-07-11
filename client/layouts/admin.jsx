@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { fetchWelcome } from "../src/slice/admin/welcomeSlice";
 import { fetchCeoMsg } from "../src/slice/admin/ceoSlice";
 import { fetchDirector } from "../src/slice/admin/directorSlice";
+import { fetchStudent } from "../src/slice/admin/studentSlice";
 
 function AdminLayout() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ function AdminLayout() {
     dispatch(fetchWelcome());
     dispatch(fetchCeoMsg());
     dispatch(fetchDirector());
+    dispatch(fetchStudent());
   }, [dispatch]);
   if (isAuthenticated === null) {
     // Optionally show a loading spinner or placeholder

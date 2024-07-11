@@ -23,6 +23,7 @@ import CeoMsg from "../pages/admin/ceo";
 import EditCeoMsg from "../pages/admin/ceo/edit";
 import Director from "../pages/admin/director";
 import EditDirector from "../pages/admin/director/edit";
+import StudentList from "../pages/admin/students";
 
   const router = createBrowserRouter([
     {
@@ -102,6 +103,10 @@ import EditDirector from "../pages/admin/director/edit";
         {
           path : "/admin/director/edit/:id",
           element : <EditDirector></EditDirector>
+        },
+        {
+          path : "/admin/student",
+          element : <StudentList></StudentList>
         }
       ]
     },

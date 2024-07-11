@@ -788,16 +788,15 @@ module.exports.updateStudent = async (req, res) => {
     if (!getStudent) {
       return res.status(404).json({ msg: "Student not found" })
     }
-    const { username, email, password } = req.body;
-    const updated = {}
-    if (username) { updated.username = username }
-    if (email) { updated.email = email }
-    if (password) { updated.password = password }
+    const updatedData = req.body;
+    // if (username) { updatedData.username = username }
+    // if (email) { updated.email = email }
+    // if (password) { updated.password = password }
     const student = await Student.findByIdAndUpdate(id, {
-      $set: updated
+      $set: updatedData
     }, {
       new: true
-    })
+    }).select("-password")
     res.status(200).json({ student: student })
   }
   catch (err) {
@@ -808,12 +807,12 @@ module.exports.updateStudent = async (req, res) => {
 module.exports.deleteStudent = async (req, res) => {
   try {
     const id = req.params.id;
-    const student = await Student.findById(id);
+    const student = await Student.findById(id).select("-password");
     if (!student) {
       return res.status(404).json({ msg: "Student not found" })
     }
     await Student.findByIdAndDelete(id);
-    res.status(200).json({ msg: "Student deleted successfully" })
+    res.status(200).json({ student: student });
   }
   catch (err) {
     console.log(err);

@@ -46,9 +46,11 @@ export function SideBar() {
           </Sidebar.Item>
           </Link>
           </Link>
+          <Link to={'/admin/student'} >
           <Sidebar.Item href="#" icon={HiUser}>
-            Users
+            Students
           </Sidebar.Item>
+          </Link>
           <Sidebar.Item href="#" icon={HiShoppingBag}>
             Products
           </Sidebar.Item>
