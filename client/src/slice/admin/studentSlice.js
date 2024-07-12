@@ -40,6 +40,8 @@ export const postStudent = createAsyncThunk('postStudent', async ({data}) => {
 
 export const patchStudent = createAsyncThunk('patchStudent', async ({id, data}) => {
   try {
+    console.log(data);
+    console.log(id);
     const response = await axiosApi.patch(`admin/student/${id}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -51,6 +53,13 @@ export const patchStudent = createAsyncThunk('patchStudent', async ({id, data}) 
   }
   catch (err) {
     console.log(err);
+    if(err.response && err.response.data){
+
+      return rejectWithValue(err.response.data.msg)
+    }
+    else{
+      return rejectWithValue('An error occurred')
+    }
   }
 })
 export const deleteStudent = createAsyncThunk('deleteStudent', async ({id}) => {
@@ -104,6 +113,7 @@ export const studentSlice = createSlice({
       console.log("Error: ", action.payload);
       state.isError = true;
       state.loading = false;
+      state.errorMessage = action.payload;
     });
     builder.addCase(postStudent.pending, (state) => {
         state.loading = true;

@@ -43,7 +43,7 @@ router.delete('/credit-transfers/:id',Auth,adminController.deleteCreditTransfers
 
 router.post('/student',Auth,upload2.none(),adminController.postStudent);
 router.get('/student',Auth,adminController.getStudent);
-router.patch('/student/:id',Auth,adminController.updateStudent);
+router.patch('/student/:id',upload2.none(),Auth,adminController.updateStudent);
 router.delete('/student/:id',Auth,adminController.deleteStudent);
 
 router.post('/blog',Auth,upload.single('blog-image'),adminController.postBlog);

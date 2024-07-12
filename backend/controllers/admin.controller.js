@@ -792,6 +792,15 @@ module.exports.updateStudent = async (req, res) => {
       return res.status(404).json({ msg: "Student not found" })
     }
     const updatedData = req.body;
+    if(updatedData.username){
+      const check = await Student.findOne({username: updatedData.username})
+      if(check && !check._id.equals(id)) return res.status(400).json({msg: "Username already exists" })
+    }
+  if(updatedData.email){
+    const check = await Student.findOne({email: updatedData.email})
+    if(check && !check._id.equals(id) ) return res.status(400).json({msg: "Email already exists" })
+      }
+
     // if (username) { updatedData.username = username }
     // if (email) { updated.email = email }
     // if (password) { updated.password = password }
