@@ -578,7 +578,7 @@ module.exports.postCourse = async (req, res) => {
       title, featured: localPath, duration, description, who_must_take, package, benefits_of_learning
     })
     if (course) {
-      return res.status(201).json({ msg: "Course added successfully" })
+      return res.status(201).json({course : course })
     }
     else {
       return res.status(400).json({ msg: "Could not add Course" })
@@ -663,7 +663,7 @@ module.exports.deleteCourse = async (req, res) => {
       return res.status(400).json({ message: "Could not delete Course" })
     }
     else {
-      return res.status(200).json({ message: "Course successfully deleted" })
+      return res.status(200).json({ course : course })
     }
 
   }

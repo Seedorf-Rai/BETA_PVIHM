@@ -51,9 +51,11 @@ export function SideBar() {
             Students
           </Sidebar.Item>
           </Link>
-          <Sidebar.Item href="#" icon={HiShoppingBag}>
-            Products
+          <Link to={`/admin/courses`} >
+          <Sidebar.Item  icon={HiTable}>
+           Our Courses
           </Sidebar.Item>
+          </Link>
           <Sidebar.Item href="#" icon={HiArrowSmRight}>
             Sign In
           </Sidebar.Item>
