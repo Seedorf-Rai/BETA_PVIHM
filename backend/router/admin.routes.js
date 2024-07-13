@@ -31,6 +31,7 @@ router.patch('/message-director/:id',Auth,upload.single('director'),adminControl
 router.post('/affiliation',Auth,upload.single('affiliation'),adminController.postAffiliation);
 router.get('/affiliation',Auth,adminController.getAffiliation);
 router.patch('/affiliation/:id',Auth,upload.single('affiliation'),adminController.updateAffiliation);
+router.delete('/affiliation/:id',Auth,adminController.deleteAffiliation)
 
 router.post('/courses',Auth,upload.single('featured'),adminController.postCourse);
 router.get('/courses',Auth,adminController.getCourses);

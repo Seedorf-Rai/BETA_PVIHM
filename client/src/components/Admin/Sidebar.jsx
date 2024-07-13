@@ -56,6 +56,11 @@ export function SideBar() {
            Our Courses
           </Sidebar.Item>
           </Link>
+          <Link to={'/admin/aff'} >
+          <Sidebar.Item  icon={HiInbox} >
+            Affiliations
+          </Sidebar.Item>
+          </Link>
           <Sidebar.Item href="#" icon={HiArrowSmRight}>
             Sign In
           </Sidebar.Item>

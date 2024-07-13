@@ -559,11 +559,36 @@ module.exports.updateAffiliation = async (req, res) => {
       aff.description = description;
     }
     await aff.save();
-    res.status(200).json({ Affiliation: aff })
+    res.status(200).json({ affiliation: aff })
   }
   catch (err) {
     console.log(err);
     res.status(500).json({ msg: "Internal Server Error" })
+  }
+}
+module.exports.deleteAffiliation = async(req,res)=>{
+  try{
+  const id = req.params.id;
+  const aff = await Affiliation.findById(id);
+  if(!aff){
+    return res.status(404).json({message:"Affiliation not found" })
+  }
+  const filePath = path.join(__dirname, '..', aff.image)
+  await new Promise((resolve, reject) => {
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error('File deletion error:', err);
+        return reject(err);
+        }
+        resolve();
+        });
+        });
+      const deleteAff = await Affiliation.findByIdAndDelete(id);
+      res.status(200).json({affiliation : deleteAff});
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({ msg: "Internal Server Error"})
   }
 }
 

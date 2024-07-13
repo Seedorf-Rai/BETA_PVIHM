@@ -29,6 +29,9 @@ import AddStudent from "../pages/admin/students/create";
 import Courses from "../pages/admin/courses";
 import AddCourse from "../pages/admin/courses/create";
 import EditCourse from "../pages/admin/courses/edit";
+import Affiliation from "../pages/admin/affiliations";
+import AddAffiliation from "../pages/admin/affiliations/create";
+import EditAffiliation from "../pages/admin/affiliations/edit";
 
   const router = createBrowserRouter([
     {
@@ -132,6 +135,18 @@ import EditCourse from "../pages/admin/courses/edit";
         {
           path : "/admin/courses/edit/:id",
           element : <EditCourse></EditCourse>
+        },
+        {
+          path : "/admin/aff",
+          element : <Affiliation></Affiliation>
+        },
+        {
+          path : "/admin/aff/add",
+          element : <AddAffiliation></AddAffiliation>
+        },
+        {
+          path : "/admin/aff/edit/:id",
+          element : <EditAffiliation></EditAffiliation>
         }
       ]
     },
