@@ -711,7 +711,9 @@ module.exports.postCreditTransfers = async (req, res) => {
       return res.status(400).json({ message: "Could not add Credit Transfers" })
     }
     else {
-      return res.status(201).json({ msg: "Credit Transfer added successfully" })
+      return res.status(201).json({
+        credit : credit
+      })
     }
   }
   catch (err) {
@@ -752,8 +754,8 @@ module.exports.deleteCreditTransfers = async (req, res) => {
           resolve();
         });
       });
-      await Credit.findByIdAndDelete(id);
-      return res.status(200).json({ msg: "Credit Transfer deleted successfully" })
+    const credit =   await Credit.findByIdAndDelete(id);
+      return res.status(200).json({ credit : credit });
     }
   }
   catch (err) {

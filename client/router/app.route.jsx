@@ -32,6 +32,8 @@ import EditCourse from "../pages/admin/courses/edit";
 import Affiliation from "../pages/admin/affiliations";
 import AddAffiliation from "../pages/admin/affiliations/create";
 import EditAffiliation from "../pages/admin/affiliations/edit";
+import Credits from "../pages/admin/credits";
+import AddCredits from "../pages/admin/credits/create";
 
   const router = createBrowserRouter([
     {
@@ -147,6 +149,14 @@ import EditAffiliation from "../pages/admin/affiliations/edit";
         {
           path : "/admin/aff/edit/:id",
           element : <EditAffiliation></EditAffiliation>
+        },
+        {
+          path : "/admin/credits",
+          element : <Credits></Credits>
+        },
+        {
+          path : "/admin/credits/add",
+          element : <AddCredits></AddCredits>
         }
       ]
     },

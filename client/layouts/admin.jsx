@@ -3,9 +3,7 @@ import { SideBar } from "../src/components/Admin/Sidebar";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchSetting } from "../src/slice/admin/settingSlice";
-import axiosApi from "../src/conf/axios";
 import { fetchCarousel } from "../src/slice/admin/carouselSlice";
-import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { fetchWelcome } from "../src/slice/admin/welcomeSlice";
 import { fetchCeoMsg } from "../src/slice/admin/ceoSlice";
@@ -13,6 +11,7 @@ import { fetchDirector } from "../src/slice/admin/directorSlice";
 import { fetchStudent } from "../src/slice/admin/studentSlice";
 import { fetchCourses } from "../src/slice/admin/courseSlice";
 import { fetchAffiliation } from "../src/slice/admin/affiliationSlice";
+import { fetchCredits } from "../src/slice/admin/creditSlice";
 
 function AdminLayout() {
   const dispatch = useDispatch();
@@ -59,6 +58,7 @@ function AdminLayout() {
     dispatch(fetchStudent());
     dispatch(fetchCourses());
     dispatch(fetchAffiliation());
+    dispatch(fetchCredits());
   }, [dispatch]);
   if (isAuthenticated === null) {
     // Optionally show a loading spinner or placeholder

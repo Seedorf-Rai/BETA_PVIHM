@@ -61,6 +61,11 @@ export function SideBar() {
             Affiliations
           </Sidebar.Item>
           </Link>
+          <Link to={'/admin/credits'}>
+          <Sidebar.Item icon={HiViewBoards}  >
+             Credit Transfers
+          </Sidebar.Item>
+          </Link>
           <Sidebar.Item href="#" icon={HiArrowSmRight}>
             Sign In
           </Sidebar.Item>
