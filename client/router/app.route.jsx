@@ -39,6 +39,10 @@ import AddBlog from "../pages/admin/blogs/create";
 import EditBlog from "../pages/admin/blogs/edit";
 import Login from "../pages/student/Login";
 import StudentLayout from "../layouts/student";
+import StudentHome from "../pages/student/Home";
+import StudentAddBlog from "../pages/student/create";
+import { studentStore } from "../src/app/studentStore";
+import StudentEditBlog from "../pages/student/edit";
 
   const router = createBrowserRouter([
     {
@@ -188,7 +192,23 @@ import StudentLayout from "../layouts/student";
       },
       {
         path : '/student',
-        element : <StudentLayout></StudentLayout>
+        element : <Provider store={studentStore} >
+          <StudentLayout></StudentLayout>
+        </Provider>,
+        children : [
+          {
+            path : '/student',
+            element : <StudentHome></StudentHome>
+          },
+          {
+            path : '/student/blog/add',
+            element : <StudentAddBlog></StudentAddBlog>
+          },
+          {
+            path : '/student/blog/edit/:id',
+            element : <StudentEditBlog></StudentEditBlog>
+          }
+        ]
       },
 
   ]);

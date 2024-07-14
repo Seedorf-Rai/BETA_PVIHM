@@ -10,7 +10,7 @@ module.exports.studentLogin = async (req, res) => {
         if (!username || !password) {
             return res.status(401).json({ msg: 'Credentials Required' })
         }
-        const student = await Student.findOne({ username: username });
+        const student = await Student.findOne({ username });
         if (!student) {
             return res.status(401).json({ msg: 'Student not Found' })
         }
@@ -137,8 +137,8 @@ module.exports.deleteBlog = async (req, res) => {
                 resolve();
             });
         });
-        await Blog.findByIdAndDelete(blogId);
-        return res.status(200).json({ msg: "Blog deleted successfully" })
+       const deleted =  await Blog.findByIdAndDelete(blogId);
+        return res.status(200).json({ blog : deleted });
     }
     catch (err) {
         console.log(err);
