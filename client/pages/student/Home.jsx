@@ -16,7 +16,7 @@ function StudentHome() {
       <div className="mt-5 py-10">
         <div className="grid grid-cols-2 gap-10">
           {
-            blogs ?
+            blogs.length > 0 ?
             blogs.map((blog)=>{
               return(
                 <div>
@@ -42,7 +42,9 @@ function StudentHome() {
           </div>
               )
             })
-          : ''
+          : <div className="flex justify-center items-center">
+             <h1>No Blogs Uploaded Yet !!</h1>
+          </div>
           }
 
         </div>
