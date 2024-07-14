@@ -66,9 +66,11 @@ export function SideBar() {
              Credit Transfers
           </Sidebar.Item>
           </Link>
-          <Sidebar.Item href="#" icon={HiArrowSmRight}>
-            Sign In
+          <Link to={`/admin/blogs`} >
+          <Sidebar.Item  icon={HiTable}>
+           Blogs
           </Sidebar.Item>
+          </Link>
           <Sidebar.Item href="#" icon={HiTable}>
             Sign Up
           </Sidebar.Item>

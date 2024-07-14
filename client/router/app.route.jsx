@@ -34,6 +34,9 @@ import AddAffiliation from "../pages/admin/affiliations/create";
 import EditAffiliation from "../pages/admin/affiliations/edit";
 import Credits from "../pages/admin/credits";
 import AddCredits from "../pages/admin/credits/create";
+import AllBlogs from "../pages/admin/blogs";
+import AddBlog from "../pages/admin/blogs/create";
+import EditBlog from "../pages/admin/blogs/edit";
 
   const router = createBrowserRouter([
     {
@@ -157,6 +160,18 @@ import AddCredits from "../pages/admin/credits/create";
         {
           path : "/admin/credits/add",
           element : <AddCredits></AddCredits>
+        },
+        {
+          path : "/admin/blogs",
+          element : <AllBlogs></AllBlogs>
+        },
+        {
+          path : "/admin/blogs/add",
+          element : <AddBlog></AddBlog>
+        },
+        {
+          path : "/admin/blogs/edit/:id",
+          element : <EditBlog></EditBlog>
         }
       ]
     },

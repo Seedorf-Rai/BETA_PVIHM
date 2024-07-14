@@ -12,6 +12,7 @@ import { fetchStudent } from "../src/slice/admin/studentSlice";
 import { fetchCourses } from "../src/slice/admin/courseSlice";
 import { fetchAffiliation } from "../src/slice/admin/affiliationSlice";
 import { fetchCredits } from "../src/slice/admin/creditSlice";
+import { fetchBlogs } from "../src/slice/admin/blogSlice";
 
 function AdminLayout() {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ function AdminLayout() {
     dispatch(fetchCourses());
     dispatch(fetchAffiliation());
     dispatch(fetchCredits());
+    dispatch(fetchBlogs())
   }, [dispatch]);
   if (isAuthenticated === null) {
     // Optionally show a loading spinner or placeholder

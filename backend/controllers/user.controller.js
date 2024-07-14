@@ -23,7 +23,7 @@ module.exports.getCarousel = async function(req, res){
     }
     catch(err){
         console.log(err);
-        return res.status(500),json({msg: "Internal Server Error"})
+        return res.status(500).json({msg: "Internal Server Error"})
     }
 }
 module.exports.getWelcome = async function(req, res){

@@ -866,7 +866,7 @@ module.exports.postBlog = async (req, res) => {
       return res.status(401).json({ msg: "Feature photo not provided" })
     }
     const localPath = req.file.path;
-    const blog = Blog.create({
+    const blog = await Blog.create({
       title,
       description,
       readTime,
@@ -875,7 +875,7 @@ module.exports.postBlog = async (req, res) => {
       creator_name: "PVIHM"
     })
     if (blog) {
-      return res.status(201).json({ msg: "Blog created successfully" })
+      return res.status(201).json({ blog : blog });
     }
     else {
       return res.status(401).json({ msg: "Could not upload blogs" })
@@ -950,8 +950,8 @@ module.exports.deleteBlog = async (req, res) => {
         resolve();
       });
     });
-    await Blog.findByIdAndDelete(id);
-    return res.status(200).json({ msg: "Blog deleted successfully" })
+   const deletedBlog =  await Blog.findByIdAndDelete(id);
+    return res.status(200).json({ blog : deletedBlog });
   }
   catch (err) {
     console.log(err);
