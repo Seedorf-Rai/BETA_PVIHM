@@ -16,16 +16,9 @@ import { fetchBlogs } from "../src/slice/admin/blogSlice";
 
 function StudentLayout() {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
-  }
   async function checkLogin() {
     try {
-      console.log(document.cookie);
-      const response = await fetch("http://localhost:5000/admin",{
+      const response = await fetch("http://localhost:5000/student",{
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -3,7 +3,7 @@ const studentController = require('../controllers/student.controller.js')
 const { Auth } = require('../middlewares/Auth.middleware.js')
 const upload = require('../middlewares/multer.middleware.js')
 
-router.get('/',(req,res)=>{
+router.get('/',Auth,(req,res)=>{
     res.status(200).json({msg: 'This is Student routes'})
 })
 

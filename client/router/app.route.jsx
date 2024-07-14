@@ -38,6 +38,7 @@ import AllBlogs from "../pages/admin/blogs";
 import AddBlog from "../pages/admin/blogs/create";
 import EditBlog from "../pages/admin/blogs/edit";
 import Login from "../pages/student/Login";
+import StudentLayout from "../layouts/student";
 
   const router = createBrowserRouter([
     {
@@ -184,6 +185,10 @@ import Login from "../pages/student/Login";
       {
         path : '/student/login',
         element : <Login></Login>
+      },
+      {
+        path : '/student',
+        element : <StudentLayout></StudentLayout>
       },
 
   ]);

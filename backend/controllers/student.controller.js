@@ -19,11 +19,8 @@ module.exports.studentLogin = async (req, res) => {
         }
         const token = await student.generateAccessToken();
         const newStudent = await Student.findOne(student._id).select("-password")
-        const options = {
-            secure: true,
-            httpOnly: true,
-        }
-        return res.status(201).cookie("token", token, options).json({ student: newStudent })
+
+        return res.status(201).cookie("token", token).json({token : token, student: newStudent })
     }
     catch (err) {
         console.log(err);
