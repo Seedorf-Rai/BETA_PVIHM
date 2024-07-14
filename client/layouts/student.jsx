@@ -14,8 +14,7 @@ import { fetchAffiliation } from "../src/slice/admin/affiliationSlice";
 import { fetchCredits } from "../src/slice/admin/creditSlice";
 import { fetchBlogs } from "../src/slice/admin/blogSlice";
 
-function AdminLayout() {
-  const dispatch = useDispatch();
+function StudentLayout() {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -31,8 +30,7 @@ function AdminLayout() {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${getCookie("token")}`
-          },
-          credentials: 'include'
+          }
       })
       console.log(response);
       if (response.status !== 200) {
@@ -85,4 +83,4 @@ function AdminLayout() {
   );
 }
 
-export default AdminLayout;
+export default StudentLayout;

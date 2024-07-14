@@ -12,7 +12,7 @@ router.get('/',Auth,  (req, res)=>{
 
 router.post('/register',adminController.adminRegister)
 router.post('/login',adminController.adminLogin)
-router.post('/logout',Auth,adminController.adminLogout)
+router.post('/logout',adminController.adminLogout)
 router.post('/carousel',Auth,upload.single('carousel'),adminController.postCarousel)
 router.get('/carousel',Auth,adminController.getCarousel);
 router.delete('/carousel/:id',Auth,adminController.deleteCarousel)

@@ -37,6 +37,7 @@ import AddCredits from "../pages/admin/credits/create";
 import AllBlogs from "../pages/admin/blogs";
 import AddBlog from "../pages/admin/blogs/create";
 import EditBlog from "../pages/admin/blogs/edit";
+import Login from "../pages/student/Login";
 
   const router = createBrowserRouter([
     {
@@ -179,6 +180,10 @@ import EditBlog from "../pages/admin/blogs/edit";
       {
         path : '/admin/login',
         element : <AdminLogin></AdminLogin>
+      },
+      {
+        path : '/student/login',
+        element : <Login></Login>
       },
 
   ]);

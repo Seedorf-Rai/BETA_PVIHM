@@ -2,13 +2,40 @@
 import { Sidebar } from "flowbite-react";
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from "react-icons/hi";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import getCookie from "../../../utils/cookie";
+import axiosApi from "../../conf/axios";
+import { useState } from "react";
 
 
 
 export function SideBar() {
 
   const setting = useSelector((state)=>state.setting.company)
+  const [nextPage,setNextPage] = useState(false)
+
+async function handleLogout(){
+  try{
+    const response = await axiosApi.post('/admin/logout', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    });
+    console.log(response);
+    setNextPage(true)
+  }
+  catch(err){
+  console.log(err);
+  }
+}
+
+if(nextPage){
+  return <Navigate to={'/'} ></Navigate>
+}
+
+
+
 //   console.log(setting);
     return (
     <Sidebar className="h-[100vh] dark sidebar" style={{ backgroundColor : '#283046' }} aria-label="Default sidebar example">
@@ -71,8 +98,8 @@ export function SideBar() {
            Blogs
           </Sidebar.Item>
           </Link>
-          <Sidebar.Item href="#" icon={HiTable}>
-            Sign Up
+          <Sidebar.Item onClick={handleLogout} href="#" icon={HiArrowSmRight}>
+            Logout
           </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
