@@ -17,11 +17,9 @@ export default function MessageCEO(){
             <h1 className="f-p mb-6 text-yellow-400 text-3xl font-bold">
               Message From The CEO
             </h1>
-            <p className="">
-              {
-                 ceo.message
-              }
-            </p>
+            <div dangerouslySetInnerHTML={{__html: `${ceo.message}` }} >
+
+</div>
           </div>
         </div>
       </div>: ""

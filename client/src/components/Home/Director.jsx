@@ -13,11 +13,9 @@ export default function Director(){
             <h1 className="f-p mb-6 text-yellow-400 text-3xl font-bold">
               Message From The Director
             </h1>
-            <p className="">
-              {
-                 director.message
-              }
-            </p>
+            <div dangerouslySetInnerHTML={{__html: `${director.message}` }} >
+
+</div>
           </div>
           <img
             className="xl:w-[600px] flex-1 xl:h-[400px] object-cover rounded-md "

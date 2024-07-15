@@ -17,11 +17,9 @@ function Welcome() {
             <h1 className="f-p mb-6 text-yellow-400 text-3xl font-bold">
               Welcome To PVIHM FAMILY
             </h1>
-            <p className="">
-              {
-                 welcome.description
-              }
-            </p>
+            <div dangerouslySetInnerHTML={{__html: `${welcome.description}` }} >
+
+            </div>
           </div>
         </div>
       </div>: ""

@@ -23,7 +23,7 @@ console.log(value);
       </Navbar.Brand>
       </Link>
       <div className="flex md:order-2">
-        <Button className="f-p">Login as student</Button>
+        <Link to={'/student'} ><Button className="f-p">Login as student</Button></Link>
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse >

@@ -1,42 +1,43 @@
 
 import { Sidebar } from "flowbite-react";
+import { useState } from "react";
 import { HiArrowSmRight, HiChartPie, HiInbox, HiPlus, HiTable, HiUser, HiViewBoards } from "react-icons/hi";
 import { useSelector } from "react-redux";
 
 import { Link, Navigate } from "react-router-dom";
+import axiosApi from "../../conf/axios";
 
 
 
 export function StudentSideBar() {
 
-//   const setting = useSelector((state)=>state.setting.company)
-//   const [nextPage,setNextPage] = useState(false)
-
-// async function handleLogout(){
-//   try{
-//     const response = await axiosApi.post('/admin/logout', {
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       withCredentials: true
-//     });
-//     console.log(response);
-//     setNextPage(true)
-//   }
-//   catch(err){
-//   console.log(err);
-//   }
-// }
-
-// if(nextPage){
-//   return <Navigate to={'/'} ></Navigate>
-// }
-
-
-
-//   console.log(setting);
-
 const setting = useSelector((state)=>state.setting.company)
+  const [nextPage,setNextPage] = useState(false)
+
+async function handleLogout(){
+ if(window.confirm("Are you sure you want to log out")){
+  try{
+    const response = await axiosApi.post('/student/logout', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    });
+    console.log(response);
+    setNextPage(true)
+  }
+  catch(err){
+  console.log(err);
+  }
+ }
+}
+
+if(nextPage){
+  return <Navigate to={'/'} ></Navigate>
+}
+
+
+
 
     return (
     <Sidebar className="h-[100vh] dark sidebar" style={{ backgroundColor : '#283046' }} aria-label="Default sidebar example">
@@ -62,7 +63,7 @@ const setting = useSelector((state)=>state.setting.company)
 
 
 
-          <Sidebar.Item className="absolute bottom-10" href="#" icon={HiArrowSmRight}>
+          <Sidebar.Item onClick={handleLogout} className="absolute bottom-10" icon={HiArrowSmRight}>
             Logout
           </Sidebar.Item>
         </Sidebar.ItemGroup>
