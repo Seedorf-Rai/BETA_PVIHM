@@ -10,6 +10,7 @@ import { fetchCourses } from "../src/slice/courseSlice"
 import { fetchCEOMsg } from "../src/slice/ceoMsgSlice"
 import { fetchDirector } from "../src/slice/directorSlice"
 import { fetchAffiliation } from "../src/slice/affiliationSlice"
+import { fetchBlogs } from "../src/slice/blogSlice"
 
 
 function UserLayout(){
@@ -22,6 +23,7 @@ function UserLayout(){
     dispatch(fetchCEOMsg());
     dispatch(fetchDirector());
     dispatch(fetchAffiliation())
+    dispatch(fetchBlogs());
 
     },[])
     return(

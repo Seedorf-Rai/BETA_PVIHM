@@ -6,7 +6,7 @@ import courseReducer from '../slice/courseSlice.js'
 import ceoMsgReducer from '../slice/ceoMsgSlice.js'
 import directorReducer from '../slice/directorSlice.js'
 import affiliationsReducer from '../slice/affiliationSlice.js'
-
+import blogReducer from '../slice/blogSlice.js'
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +16,7 @@ export const store = configureStore({
     courses : courseReducer,
     ceoMsg : ceoMsgReducer,
     director : directorReducer,
-    affiliations : affiliationsReducer
+    affiliations : affiliationsReducer,
+    blogs : blogReducer,
   },
 })

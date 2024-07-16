@@ -12,4 +12,5 @@ router.get('/message-ceo',userController.getCEO)
 router.get('/message-ceo',userController.getCEO)
 router.get('/message-director',userController.getDirector)
 router.get('/affiliation',userController.getAffiliation)
+router.get('/blogs',userController.getBlogs);
 module.exports = router

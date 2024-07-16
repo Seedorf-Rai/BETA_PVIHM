@@ -1,4 +1,5 @@
 const Affiliation = require("../models/affiliation.model");
+const Blog = require("../models/blog.model");
 const Carousel = require("../models/carousel.model");
 const MsgCEO = require("../models/ceoMessage.model");
 const Courses = require("../models/course.model");
@@ -79,6 +80,20 @@ module.exports.getAffiliation = async(req,res)=>{
         }
         return res.status(200).json({affiliations: aff})
 
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({msg: "Internal Server Error"})
+    }
+}
+
+module.exports.getBlogs = async function(req,res){
+    try{
+     const blogs = await Blog.find();
+     if(!blogs){
+        return res.status(404).json({msg: "Blogs not Found"});
+     }
+     return res.status(200).json({blogs: blogs});
     }
     catch(err){
         console.log(err);
