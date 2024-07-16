@@ -13,4 +13,5 @@ router.get('/message-ceo',userController.getCEO)
 router.get('/message-director',userController.getDirector)
 router.get('/affiliation',userController.getAffiliation)
 router.get('/blogs',userController.getBlogs);
+router.get('/credit-transfers',userController.getCreditTransfers)
 module.exports = router

@@ -3,6 +3,7 @@ const Blog = require("../models/blog.model");
 const Carousel = require("../models/carousel.model");
 const MsgCEO = require("../models/ceoMessage.model");
 const Courses = require("../models/course.model");
+const Credit = require("../models/credit.model");
 const Director = require("../models/director.model");
 const Setting = require("../models/setting.model");
 const Welcome = require("../models/Welcome.model");
@@ -94,6 +95,22 @@ module.exports.getBlogs = async function(req,res){
         return res.status(404).json({msg: "Blogs not Found"});
      }
      return res.status(200).json({blogs: blogs});
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({msg: "Internal Server Error"})
+    }
+}
+
+module.exports.getCreditTransfers = async function(req,res){
+    try{
+
+        const creditTransfers = await Credit.find();
+        if(!creditTransfers){
+            return res.status(404).json({msg: "No credit transfers found"})
+            }
+            return res.status(200).json({creditTransfers: creditTransfers})
+
     }
     catch(err){
         console.log(err);

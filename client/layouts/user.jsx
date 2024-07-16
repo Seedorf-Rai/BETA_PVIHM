@@ -11,6 +11,7 @@ import { fetchCEOMsg } from "../src/slice/ceoMsgSlice"
 import { fetchDirector } from "../src/slice/directorSlice"
 import { fetchAffiliation } from "../src/slice/affiliationSlice"
 import { fetchBlogs } from "../src/slice/blogSlice"
+import { fetchCredits } from "../src/slice/creditSlice"
 
 
 function UserLayout(){
@@ -24,6 +25,7 @@ function UserLayout(){
     dispatch(fetchDirector());
     dispatch(fetchAffiliation())
     dispatch(fetchBlogs());
+    dispatch(fetchCredits());
 
     },[])
     return(
