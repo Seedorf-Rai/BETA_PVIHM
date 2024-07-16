@@ -11,4 +11,5 @@ router.get('/courses',userController.getCourses)
 router.get('/message-ceo',userController.getCEO)
 router.get('/message-ceo',userController.getCEO)
 router.get('/message-director',userController.getDirector)
+router.get('/affiliation',userController.getAffiliation)
 module.exports = router

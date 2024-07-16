@@ -1,5 +1,6 @@
 import { LearnCard } from "../src/components/Cards/LearnCard"
 import { Stats } from "../src/components/Cards/Stats"
+import Affiliation from "../src/components/Home/Affiliation"
 import {  CarouselComponent } from "../src/components/Home/Carousel"
 import CourseSection from "../src/components/Home/CourseSection"
 import Director from "../src/components/Home/Director"
@@ -17,6 +18,7 @@ function Home(){
          <CourseSection></CourseSection>
          <MessageCEO></MessageCEO>
          <Director></Director>
+         <Affiliation></Affiliation>
         </>
     )
 }

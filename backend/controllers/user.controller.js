@@ -1,3 +1,4 @@
+const Affiliation = require("../models/affiliation.model");
 const Carousel = require("../models/carousel.model");
 const MsgCEO = require("../models/ceoMessage.model");
 const Courses = require("../models/course.model");
@@ -62,6 +63,22 @@ module.exports.getDirector = async function(req, res){
     try{
       const director = await Director.find();
       return res.status(200).json({director: director[0]})
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({msg: "Internal Server Error"})
+    }
+}
+
+module.exports.getAffiliation = async(req,res)=>{
+    try{
+
+        const aff = await Affiliation.find();
+        if(!aff){
+            return res.status(404).json({msg: "No affiliation found"})
+        }
+        return res.status(200).json({affiliations: aff})
+
     }
     catch(err){
         console.log(err);
