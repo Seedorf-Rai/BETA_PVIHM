@@ -21,7 +21,9 @@ function CreditTransferSection(){
         {
             credits ?  credits.map((credit)=>{
                 return (
-                    <img className="w-[150px] px-4 " src={`http://localhost:5000/${credit.featured}`} alt="" srcset="" />
+                   <div className="w-[150px] px-4">
+                     <img className="rounded" src={`http://localhost:5000/${credit.featured}`} alt="" srcset="" />
+                   </div>
                 )
                }):''
         }

@@ -12,6 +12,7 @@ import { fetchDirector } from "../src/slice/directorSlice"
 import { fetchAffiliation } from "../src/slice/affiliationSlice"
 import { fetchBlogs } from "../src/slice/blogSlice"
 import { fetchCredits } from "../src/slice/creditSlice"
+import Footer from "../src/components/global/Footer"
 
 
 function UserLayout(){
@@ -33,7 +34,7 @@ function UserLayout(){
 
          <NavBar></NavBar>
          <Outlet></Outlet>
-
+         <Footer></Footer>
         </>
     )
 }

@@ -9,10 +9,10 @@ function BlogSection() {
   return (
     <section className="xl:px-20 py-3 ">
       <h1 className=" text-yellow-400 text-3xl font-bold text-center">
-        Our Blogs
+        Blogs From Students
       </h1>
       <Link className="text-yellow-400 float-end underline ">Show All</Link>
-      <div className="flex justify-between py-10">
+      <div className="flex xl:ps-10 justify-between py-10">
         {blog ? blog.map((blog) =>{
             return(
                 <Card

@@ -79,7 +79,7 @@ function AdminSetting(){
             </h2>
          </div>
          <Link to={`/admin/edit/${setting._id}`}>
-         <button>Edit</button>
+         <button className="mt-5 p-3 bg-cyan-600 rounded">Edit</button>
          </Link>
        </div>
        :
