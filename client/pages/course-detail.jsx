@@ -21,7 +21,7 @@ function CourseDetail() {
       {course ? (
         <>
           <div
-            className="course-top bg-no-repeat bg-cover  bg-center min-h-screen "
+            className="course-top bg-no-repeat bg-cover  bg-center  "
             style={{
               backgroundImage: `url( ${correctedBgImageURL} )`,
               backgroundRepeat: "no-repeat",
@@ -37,7 +37,7 @@ function CourseDetail() {
           <div className="course-content xl:px-20 my-10 ">
             <h2 className="mb-4">
               <span className="text-xl font-bold">Course Description : </span>
-              {course.description}
+              <p dangerouslySetInner={{ __html: `${course.description}` }} ></p>
             </h2>
             <h2>
               <span className="text-xl font-bold">Course Duration : </span>
