@@ -43,6 +43,7 @@ import StudentHome from "../pages/student/Home";
 import StudentAddBlog from "../pages/student/create";
 import { studentStore } from "../src/app/studentStore";
 import StudentEditBlog from "../pages/student/edit";
+import BlogDetailPage from "../pages/blogDetail";
 
   const router = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ import StudentEditBlog from "../pages/student/edit";
         {
           path : "blogs",
           element : <Blogs></Blogs>
+        },
+        {
+          path : "blogs/:id",
+          element : <BlogDetailPage></BlogDetailPage>
         },
         {
           path : "contact",

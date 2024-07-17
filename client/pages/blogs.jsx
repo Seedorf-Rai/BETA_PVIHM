@@ -1,5 +1,6 @@
 import { Card } from "flowbite-react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Blogs() {
 
@@ -14,6 +15,7 @@ function Blogs() {
            {
             blogs ? blogs.map((blog)=>{
                 return(
+                    <Link to={`/blogs/${blog._id}`} >
                     <Card
                     className="max-w-sm dark  bg-[#1F2937]"
                     imgAlt="Meaningful alt text for an image that is not purely decorative"
@@ -29,6 +31,7 @@ function Blogs() {
 
                    </div>
                   </Card>
+                    </Link>
                 )
             }) : ''
            }
