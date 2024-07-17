@@ -20,7 +20,7 @@ function BlogSection() {
                 imgAlt="Meaningful alt text for an image that is not purely decorative"
 
               >
-                <img src={`http://localhost:5000/${blog.featured}`} className="h-[200px] w-[300px] object-cover " alt="" />
+                <img src={`http://localhost:5000/${blog.featured}`} className="h-[200px] w-[350px] object-cover " alt="" />
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {
                     blog.title.length > 30 ? blog.title.slice(0,30) + "..." : blog.title
