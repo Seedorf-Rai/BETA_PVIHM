@@ -1,11 +1,24 @@
 import { Table } from "flowbite-react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { ToastContainer } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
+import { deleteForm } from "../../../src/slice/admin/formSlice"
 
 
 export function Registration(){
-  const forms = useSelector((state)=>state.forms.forms)
+
+    const forms = useSelector((state)=>state.forms.forms)
+    const dispatch = useDispatch()
+
+ async   function handleDelete(id){
+        if(window.confirm("Are you sure you want to delete")){
+            const response = await dispatch(deleteForm({id:id}))
+            if(deleteForm.fulfilled.match(response)){
+                toast.success('Registration Deleted Successfully')
+            }
+        }
+    }
+
     return(
         <>
           <div className="overflow-x-auto me-20 dark my-10">
@@ -21,7 +34,7 @@ export function Registration(){
             {forms ? forms.map((form) => (
               <Table.Row key={form?._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <Table.Cell>
-                  <Link to={`/admin/form/edit/${form._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                  <Link to={`/admin/registration/edit/${form._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                     Info
                   </Link>
                   <button onClick={()=>{handleDelete(form._id)}} className="font-medium ms-3 text-red-500">

@@ -43,7 +43,7 @@ function Contact(){
                 }
           })
            if(response.status === 200){
-            toast.success('Form submitted successfully')
+            toast.success('Thank you !! We will reach you soon')
            }
            setName('')
            setAge('')
@@ -53,7 +53,7 @@ function Contact(){
            setParentName('')
            setParentNumber('')
            setAddresses('')
-           
+
         }
     }
 

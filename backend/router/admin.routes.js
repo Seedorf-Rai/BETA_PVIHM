@@ -57,5 +57,6 @@ router.patch('/setting/:id',Auth,upload.single('logo'),adminController.updateSet
 router.get('/setting',Auth,adminController.getSetting);
 
 router.get('/form',Auth,upload2.none(),adminController.getForm);
+router.delete('/form/:id',Auth,adminController.deleteForm);
 
 module.exports = router

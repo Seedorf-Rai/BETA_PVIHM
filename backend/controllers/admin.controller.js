@@ -973,3 +973,20 @@ module.exports.getForm = async(req,res)=>{
     return res.status(500).json({ msg: "Internal Server Error"})
   }
 }
+
+module.exports.deleteForm = async(req,res)=>{
+  try{
+
+    const id = req.params.id
+    const form = await Form.findById(id)
+    if(!form){
+      return res.status(401).json({msg:"Form not found" })
+      }
+    const deleteForm = await Form.findByIdAndDelete(id)
+    return res.status(200).json({form:deleteForm})
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({ msg: "Internal Server Error"})
+  }
+}

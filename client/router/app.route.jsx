@@ -45,6 +45,7 @@ import { studentStore } from "../src/app/studentStore";
 import StudentEditBlog from "../pages/student/edit";
 import BlogDetailPage from "../pages/blogDetail";
 import { Registration } from "../pages/admin/registration";
+import EditRegistration from "../pages/admin/registration/edit";
 
   const router = createBrowserRouter([
     {
@@ -188,6 +189,10 @@ import { Registration } from "../pages/admin/registration";
         {
           path : '/admin/registration',
           element : <Registration></Registration>
+        },
+        {
+          path : '/admin/registration/edit/:id',
+          element : <EditRegistration></EditRegistration>
         }
       ]
     },
