@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const userController = require('../controllers/user.controller.js')
+const multer = require('multer')
+const upload = multer()
 
 router.get('/',(req,res)=>{
     res.status(200).json({message: "Welcome"})
@@ -14,4 +16,7 @@ router.get('/message-director',userController.getDirector)
 router.get('/affiliation',userController.getAffiliation)
 router.get('/blogs',userController.getBlogs);
 router.get('/credit-transfers',userController.getCreditTransfers)
+
+router.post('/form',upload.none(),userController.postForm);
+
 module.exports = router

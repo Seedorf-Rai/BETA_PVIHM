@@ -2,37 +2,58 @@ import { useState } from "react"
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa"
 import { useSelector } from "react-redux"
 import { toast, ToastContainer } from "react-toastify";
+import axiosApi from "../src/conf/axios";
 
 
 function Contact(){
     const setting = useSelector((state)=>state.setting.company)
     const courses = useSelector((state)=>state.courses.courses)
 
-    const [name,setName] = useState(null)
-    const [age,setAge] = useState(null)
-    const [number,setNumber] = useState(null);
-    const [from,setFrom] = useState(null);
-    const [course,setCourse] = useState(null);
-    const [parentName,setParentName] = useState(null);
-    const [parentNumber,setParentNumber] = useState(null);
-    const [addresses,setAddresses] = useState(null);
+    const [name,setName] = useState('')
+    const [age,setAge] = useState('')
+    const [number,setNumber] = useState('');
+    const [from,setFrom] = useState('');
+    const [course,setCourse] = useState('');
+    const [parentName,setParentName] = useState('');
+    const [parentNumber,setParentNumber] = useState('');
+    const [addresses,setAddresses] = useState('');
 
-    function handleSubmit(e){
+ async   function handleSubmit(e){
         e.preventDefault();
+        console.log(typeof age);
+        console.log(name,age,number,from,course,parentName,parentNumber,addresses);
         if(!name || !age || !number || !from || !course || !parentName || !parentNumber || !addresses){
            toast.error('Please fill the complete form')
            return
         }
         else{
           const formData = new FormData();
-          formData.append('name',name);
-          formData.append('age',age);
-          formData.append('number',number);
-          formData.append('from',from);
-          formData.append('course',course);
+          formData.append('studentName',name);
+          formData.append('studentAge',age);
+          formData.append('studentNumber',number);
+          formData.append('studentFrom',from);
+          formData.append('studentCourse',course);
           formData.append('parentName',parentName);
           formData.append('parentNumber',parentNumber);
-          formData.append('addresses',addresses);
+          formData.append('studentAddress',addresses);
+
+          const response = await axiosApi.post('form',formData,{
+            headers: {
+                'Content-Type': 'multipart/form-data'
+                }
+          })
+           if(response.status === 200){
+            toast.success('Form submitted successfully')
+           }
+           setName('')
+           setAge('')
+           setNumber('')
+           setFrom('')
+           setCourse('')
+           setParentName('')
+           setParentNumber('')
+           setAddresses('')
+           
         }
     }
 
@@ -73,21 +94,21 @@ function Contact(){
                <div className="flex justify-between">
                <div className="flex flex-col">
                     <label className="mb-3" htmlFor="">Student Name: </label>
-                <input required type="text" onChange={(e)=>setName(e.target.value)} className="bg-transparent" placeholder="Enter Name" />
+                <input value={name} required type="text" onChange={(e)=>setName(e.target.value)} className="bg-transparent" placeholder="Enter Name" />
                 </div>
                 <div className="flex flex-col">
                     <label className="mb-3" htmlFor="">Student's Age: </label>
-                <input required type="number" onChange={(e)=>setAge(e.target.value)} min={0} className="bg-transparent" placeholder="Enter Age" />
+                <input value={age} required type="number" onChange={(e)=>setAge(e.target.value)} min={0} className="bg-transparent" placeholder="Enter Age" />
                 </div>
                 <div className="flex flex-col">
                     <label className="mb-3" htmlFor="">Student's Contact Number: </label>
-                <input required  type="text" onChange={(e)=>setNumber(e.target.value)} className="bg-transparent" placeholder="Enter Name" />
+                <input value={number} required  type="text" onChange={(e)=>setNumber(e.target.value)} className="bg-transparent" placeholder="Enter Name" />
                 </div>
                </div>
                <div className="grid gap-3 grid-cols-2 mt-5">
                <div className="flex flex-col">
                     <label className="mb-3" htmlFor="">SEE From: </label>
-                <input required type="text" onChange={(e)=>setFrom(e.target.value)} className="bg-transparent" placeholder="Enter School Name" />
+                <input value={from} required type="text" onChange={(e)=>setFrom(e.target.value)} className="bg-transparent" placeholder="Enter School Name" />
                 </div>
                 <div className="flex flex-col">
                     <label className="mb-3" htmlFor="">Interested Course: </label>
@@ -109,15 +130,15 @@ function Contact(){
                <div className="flex justify-between mt-5">
                <div className="flex flex-col">
                     <label className="mb-3" htmlFor="">Student Address: </label>
-                <input required type="text" onChange={(e)=>setAddresses(e.target.value)} className="bg-transparent" placeholder="Enter Name" />
+                <input value={addresses} required type="text" onChange={(e)=>setAddresses(e.target.value)} className="bg-transparent" placeholder="Enter Name" />
                 </div>
                 <div className="flex flex-col">
                     <label className="mb-3" htmlFor="">Parent's Name: </label>
-                <input required type="text" onChange={(e)=>setParentName(e.target.value)}  className="bg-transparent" placeholder="Enter Age" />
+                <input value={parentName} required type="text" onChange={(e)=>setParentName(e.target.value)}  className="bg-transparent" placeholder="Enter Age" />
                 </div>
                 <div className="flex flex-col">
                     <label className="mb-3" htmlFor="">Parent's Contact Number: </label>
-                <input required  type="text" onChange={(e)=>setParentNumber(e.target.value)} className="bg-transparent" placeholder="Enter Name" />
+                <input value={parentNumber} required  type="text" onChange={(e)=>setParentNumber(e.target.value)} className="bg-transparent" placeholder="Enter Name" />
                 </div>
                </div>
               </div>

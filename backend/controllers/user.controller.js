@@ -5,6 +5,7 @@ const MsgCEO = require("../models/ceoMessage.model");
 const Courses = require("../models/course.model");
 const Credit = require("../models/credit.model");
 const Director = require("../models/director.model");
+const Form = require("../models/form.model");
 const Setting = require("../models/setting.model");
 const Welcome = require("../models/Welcome.model");
 
@@ -110,6 +111,25 @@ module.exports.getCreditTransfers = async function(req,res){
             return res.status(404).json({msg: "No credit transfers found"})
             }
             return res.status(200).json({creditTransfers: creditTransfers})
+
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({msg: "Internal Server Error"})
+    }
+}
+
+module.exports.postForm = async (req,res)=>{
+    try{
+
+        const {studentName , studentAge , studentNumber , studentFrom , studentCourse , studentAddress , parentName , parentNumber} = req.body;
+        const newForm = await Form.create({
+            studentName , studentAge , studentNumber , studentFrom , studentCourse , studentAddress , parentName, parentNumber
+        })
+        if(!newForm){
+            return res.status(404).json({msg: "Form not created"})
+        }
+        return res.status(200).json({form : newForm})
 
     }
     catch(err){

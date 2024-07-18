@@ -6,7 +6,7 @@ const formSchema = new mongoose.Schema({
         required : true
     },
     studentAge : {
-        type : Number,
+        type : String,
         required : true
     },
     studentNumber : {
