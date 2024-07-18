@@ -6,6 +6,7 @@ import { Link, Navigate } from "react-router-dom";
 import getCookie from "../../../utils/cookie";
 import axiosApi from "../../conf/axios";
 import { useState } from "react";
+import { FaWpforms } from "react-icons/fa";
 
 
 
@@ -96,6 +97,18 @@ if(nextPage){
           <Link to={`/admin/blogs`} >
           <Sidebar.Item  icon={HiTable}>
            Blogs
+          </Sidebar.Item>
+          </Link>
+          <Link to={`/admin/registration`} >
+          <Sidebar.Item  >
+           <div className="flex items-center">
+           <div className="relative -left-2 ">
+           <FaWpforms />
+           </div>
+           <div className="ms-2">
+            Online Registration
+           </div>
+           </div>
           </Sidebar.Item>
           </Link>
           <Sidebar.Item onClick={handleLogout} href="#" icon={HiArrowSmRight}>

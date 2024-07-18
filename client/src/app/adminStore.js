@@ -9,6 +9,7 @@ import coursesReducer from '../slice/admin/courseSlice.js'
 import affiliationReducer from '../slice/admin/affiliationSlice.js'
 import creditsReducer from '../slice/admin/creditSlice.js'
 import blogReducer from '../slice/admin/blogSlice.js'
+import formReducer from '../slice/admin/formSlice.js'
 
 export const adminStore = configureStore({
  reducer : {
@@ -22,5 +23,6 @@ export const adminStore = configureStore({
     affiliation : affiliationReducer,
     credits : creditsReducer,
     blogs : blogReducer,
+    forms : formReducer,
  }
 })

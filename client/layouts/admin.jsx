@@ -13,6 +13,7 @@ import { fetchCourses } from "../src/slice/admin/courseSlice";
 import { fetchAffiliation } from "../src/slice/admin/affiliationSlice";
 import { fetchCredits } from "../src/slice/admin/creditSlice";
 import { fetchBlogs } from "../src/slice/admin/blogSlice";
+import { fetchForm } from "../src/slice/admin/formSlice";
 
 function AdminLayout() {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ function AdminLayout() {
     dispatch(fetchAffiliation());
     dispatch(fetchCredits());
     dispatch(fetchBlogs())
+    dispatch(fetchForm())
   }, [dispatch]);
   if (isAuthenticated === null) {
     // Optionally show a loading spinner or placeholder

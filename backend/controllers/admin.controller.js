@@ -14,6 +14,7 @@ const Student = require('../models/student.model.js');
 const { log } = require('console');
 const Blog = require('../models/blog.model.js');
 const Setting = require('../models/setting.model.js');
+const Form = require('../models/form.model.js');
 
 module.exports.adminRegister = async (req, res) => {
   try {
@@ -954,5 +955,21 @@ module.exports.deleteBlog = async (req, res) => {
   catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "Internal Server Error" })
+  }
+}
+
+module.exports.getForm = async(req,res)=>{
+  try{
+
+    const forms = await Form.find()
+    if(!forms){
+      return res.status(401).json({msg:"Form not found" })
+    }
+    return res.status(200).json({forms:forms})
+
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({ msg: "Internal Server Error"})
   }
 }

@@ -56,4 +56,6 @@ router.post('/setting',Auth,upload.single('logo'),adminController.postSetting);
 router.patch('/setting/:id',Auth,upload.single('logo'),adminController.updateSetting);
 router.get('/setting',Auth,adminController.getSetting);
 
+router.get('/form',Auth,upload2.none(),adminController.getForm);
+
 module.exports = router
