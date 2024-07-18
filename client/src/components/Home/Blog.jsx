@@ -11,11 +11,12 @@ function BlogSection() {
       <h1 className=" text-yellow-400 text-3xl font-bold text-center">
         Blogs From Students
       </h1>
-      <Link className="text-yellow-400 float-end underline ">Show All</Link>
+      <Link to={'/blogs'} className="text-yellow-400 float-end underline ">Show All</Link>
       <div className="flex xl:ps-10 justify-between py-10">
         {blog ? blog.map((blog) =>{
             return(
-                <Card
+                <Link to={`/blogs/${blog._id}`}>
+                 <Card
                 className="max-w-sm dark  bg-[#1F2937]"
                 imgAlt="Meaningful alt text for an image that is not purely decorative"
 
@@ -30,6 +31,7 @@ function BlogSection() {
 
                </div>
               </Card>
+                </Link>
             )
         }) : (
           ""
